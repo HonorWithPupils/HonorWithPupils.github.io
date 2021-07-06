@@ -3,12 +3,83 @@
   <entry>
     <title>身为低保户还要写博客是不是搞错了什么</title>
     <url>/2021/06/29/%E8%BA%AB%E4%B8%BA%E4%BD%8E%E4%BF%9D%E6%88%B7%E8%BF%98%E8%A6%81%E5%86%99%E5%8D%9A%E5%AE%A2%E6%98%AF%E4%B8%8D%E6%98%AF%E6%90%9E%E9%94%99%E4%BA%86%E4%BB%80%E4%B9%88/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>没有枪（指域名），没有炮（指服务器），只有一杆冲锋号（穷学生一个）。该如何搭建一个属于自己的博客？</p>
+<p>个人建站明显不可能了，而又想定制外观、乱折腾的话，其实也就只剩 博客园 和 Hexo 两个选择了。</p>
+<p>最终我选择了在 GitHub Pages 上搭建基于 Hexo 的静态网页博客，主要原因还是希望能多折腾，否则博客园无疑是个更好的选择。接下来本文就会详细介绍下如何使用 Hexo + Github 搭建博客的过程。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/image-20210705115752219.png" alt="image-20210705115752219"></p>
+<h3 id="什么是-Hexo"><a href="#什么是-Hexo" class="headerlink" title="什么是 Hexo?"></a>什么是 <a href="https://hexo.io/zh-cn/">Hexo</a>?</h3><blockquote>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+</blockquote>
+<h3 id="什么是静态网页"><a href="#什么是静态网页" class="headerlink" title="什么是静态网页"></a>什么是静态网页</h3><p>本人的理解是：静态网页并非静止不动的网页，而是指除了通过 URL 获得网页信息就没有其他方法<strong>与服务器</strong>交互的网页。</p>
+<h3 id="什么是-GitHub-Pages？"><a href="#什么是-GitHub-Pages？" class="headerlink" title="什么是 GitHub Pages？"></a>什么是 <a href="https://pages.github.com/">GitHub Pages</a>？</h3><blockquote>
+<p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面用于介绍和宣传自己的项目。</p>
+</blockquote>
+<h3 id="什么是-GitHub-Pages-Hexo"><a href="#什么是-GitHub-Pages-Hexo" class="headerlink" title="什么是 GitHub Pages + Hexo?"></a>什么是 GitHub Pages + Hexo?</h3><p>即将 Hexo 生成的静态网页部署在 GitHub Pages。我不太清楚 GitHub 官方对用户蹭服务器写博客的态度如何，但从大量采用这个方式的个人博客和 <a href="https://hexo.io/zh-cn/">Hexo</a> 官网的介绍来看，这一行为最起码是被长期默许的。整个过程如下图</p>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/Hexo-GitHubPages%E6%B5%81%E7%A8%8B.png" alt="Hexo-GitHubPages流程"></p>
+<ul>
+<li>优点：完全免费；可自由选择主题外观；静态网页；维护稳定</li>
+<li>缺点：相比动态博客，发文不够便利；Github 在国内访问日常性抽风</li>
+</ul>
+<h2 id="如何使用-GitHub-Pages-Hexo"><a href="#如何使用-GitHub-Pages-Hexo" class="headerlink" title="如何使用 GitHub Pages + Hexo?"></a>如何使用 GitHub Pages + Hexo?</h2><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li><a href="https://link.zhihu.com/?target=https://nodejs.org/zh-cn">Node.js</a> ：Hexo 基于 Node.js，并使用 npm 安装 （Node.js 自带）</li>
+<li><a href="https://link.zhihu.com/?target=https://git-scm.com/downloads">Git</a> ：部署到 GitHub Pages 上，同时 Hexo 自身也需要 Git 来下载</li>
+</ul>
+<h3 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h3><ol>
+<li>没有账号先注册 GitHub 账号，CMD 输入以下指令，用于设置用户名和邮箱（GitHub 账号所使用邮箱）：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;GitHub 用户名&quot;</span><br><span class="line">git config --global user.email &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建并添加 SSH 密钥（为了 GitHub 服务器验证身份，从而使得 Hexo 可以自动 Push），CMD 输入以下指令 :</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;GitHub 邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<p>一路回车，最后在 C:\Users\用户名\.ssh 目录（要勾选显示“隐藏的项目”），用记事本打开 id_rsa.pub，并复制内容，在 GitHub 网页上的个人设置中添加 SSH keys，将之前复制的内容添加进去。</p>
+<ol start="3">
+<li>最后在 CMD 内输入：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>显示 “Hi xxx! You’ve successfully……” 则成功</p>
+<ol start="4">
+<li>创建一个 GitHub 仓库（public）用于发布博客</li>
+</ol>
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>创建一个文件夹，该文件夹用于你日后本地原文件的存储，然后 CMD 内 cd 到该文件夹下，并输入以下指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli  # 安装 Hexo</span><br><span class="line">hexo init                # 初始化</span><br><span class="line">npm install              # 安装组件</span><br><span class="line">hexo g                   # 生成页面</span><br><span class="line">hexo s                   # 启动预览</span><br></pre></td></tr></table></figure>
+
+<p>然后访问 <code>http://localhost:4000</code> ，出现 Hexo 默认初始化界面</p>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/image-20210707005908359.png" alt="image-20210707005908359"></p>
+<h3 id="Hexo-GitHub-Pages"><a href="#Hexo-GitHub-Pages" class="headerlink" title="Hexo + GitHub Pages"></a>Hexo + GitHub Pages</h3><p>首先安装 hexo-deployer-git，Hexo 用于部署到类GitHub网站上的插件（Gitee 也可以，似乎能解决国内访问困难的问题）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>然后修改全局 _config.yml 的 deploy 项如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:用户名/仓库名</span><br><span class="line">  branch: main # 网上有些老教程写的 master，但是Github早就因为政治正确把默认分支的名字改名了</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>以后每次要发布新文章或者修改就</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new &quot;&lt;name&gt;&quot;     # 新建文章</span><br></pre></td></tr></table></figure>
+
+<p>然后 source 文件夹中会出现一个 &lt;name&gt;.md 文件，就可以使用 Markdown 编辑器在该文件中撰写文章了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g                # 生成页面</span><br><span class="line">hexo s                # 本地预览</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>http://localhost:4000</code> 打开预览，没有问题就</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo d                # 部署</span><br></pre></td></tr></table></figure>
+
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>本博客使用的主题为 <a href="https://github.com/Fechin/hexo-theme-diaspora">hexo-theme-diaspora</a> ，具体方法参考该链接</p>
+<p>这个主题也可以说是比较小众又年久失修，如果需要功能完善的主题，可以选择 <a href="http://theme-next.iissnan.com/">NexT</a> 这样用的人多的主题</p>
+<p>在这里也大胆地写一下关于这个主题的 todo-list：</p>
+<ol>
+<li>统计网页访问量等（当众处刑；</li>
+<li>音乐音量调节功能；</li>
+<li>可跟随文章滑动的 TOC；</li>
+<li>支持更多的 Markdown 插件。</li>
+</ol>
+]]></content>
       <categories>
-        <category>工具</category>
+        <category>博客</category>
       </categories>
       <tags>
-        <tag>博客</tag>
+        <tag>hexo</tag>
+        <tag>diaspora</tag>
       </tags>
   </entry>
 </search>
