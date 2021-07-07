@@ -106,24 +106,24 @@
 <h3 id="实验一-mathcal-L-s-分布"><a href="#实验一-mathcal-L-s-分布" class="headerlink" title="实验一 $\mathcal{L}_{s}$ 分布"></a>实验一 $\mathcal{L}_{s}$ 分布</h3><p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/风格损失分布.png" alt="风格损失分布"></p>
 <p>上图为针对四种模型，风格损失的分布，得到以下两点：</p>
 <ol>
-<li>不同模型 $\mathcal{L}_{s}$ 分布相似</li>
-<li>$\mathcal{L}<em>{s}$ 不能反映风格化的程度，与直觉相反，$\mathcal{L}</em>{s}$ 高反而过风格化</li>
+<li>不同模型 $\mathcal{L}_{s}$ 分布相似；</li>
+<li>与直觉相反，$\mathcal{L}_{s}$ 高反而过风格化，不能反映风格化的程度。</li>
 </ol>
 <h3 id="实验二-mathcal-L-s-VS-人工评价"><a href="#实验二-mathcal-L-s-VS-人工评价" class="headerlink" title="实验二 $\mathcal{L}_{s}$ VS 人工评价"></a>实验二 $\mathcal{L}_{s}$ VS 人工评价</h3><p>$\mathcal{L}_{s}$ 越大，人工评价反而越好</p>
 <p>如果将人工评价定义为三个等级 GOOD(-1)，OK(0)，BAD(1)，则如下表数据，人工评价和 $\mathcal{L}_{s}$ 是负相关</p>
 <p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/风格损失vs人工评价.png" alt="风格损失vs人工评价"></p>
 <h2 id="探讨原因"><a href="#探讨原因" class="headerlink" title="探讨原因"></a>探讨原因</h2><p>在以 Batch 为单位的训练中，如下式</p>
 <script type="math/tex; mode=display">
-\mathcal{L}_{s}^{Batch} = \sum_{k\in{1,...,B}} \frac{1}{B}\cdot \mathcal{L}_{s}(S_k,P_k)</script><p>由于不同风格的迁移难度不同（在格拉姆矩阵的评价指标下），换言之实际风格迁移效果与  $\mathcal{L}<em>s$ 不匹配，不同风格的 $\mathcal{L}</em>{s}$ 相差上千倍，经过平均后，大的 $\mathcal{L}_{s}$ 比重太大，导致只针对这些风格迭代模型，使得  $\mathcal{L}_s$ 高的风格过风格化， $\mathcal{L}_s$ 低的风格欠风格化</p>
+\mathcal{L}_{s}^{Batch} = \sum_{k\in{1,...,B}} \frac{1}{B}\cdot \mathcal{L}_{s}(S_k,P_k)</script><p>由于不同风格的迁移难度不同（在格拉姆矩阵的评价指标下），换言之实际风格迁移效果与 $\mathcal{L}_s$ 不匹配，不同风格的 $\mathcal{L}_s$ 相差上千倍，经过平均后，大的 $\mathcal{L}_s$ 比重太大，导致只针对这些风格迭代模型，使得 $\mathcal{L}_s$ 高的风格过风格化， $\mathcal{L}_s$ 低的风格欠风格化</p>
 <h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p>原文作者使用了一个简单的归一化方法，将 $\mathcal{L}_{s}$ 除以其上界，如下式</p>
 <script type="math/tex; mode=display">
 \hat{\mathcal{L}}_{s}=\frac{\mathcal{L}_{s}}{sup\{\mathcal{L}_{s}\}}</script><p>其中 $sup{\mathcal{L}_{s}}$ 为 $\mathcal{L}_s$ 的上届，如下式</p>
 <script type="math/tex; mode=display">
 sup\{\mathcal{L}_{s}(S,P)\} =\frac{||\mathcal{G}\circ\mathcal{F}(S)||^2+||\mathcal{G}\circ\mathcal{F}(P)||^2}{N}</script><p>其依据是 $\mathcal{L}_{s}$ 和其上界的高度相关性</p>
-<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/Ls和其上界的相关性.png" alt="Ls和其上界的相关性"></p>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/Ls和其上界的相关性.png" alt="Ls和其上界的相关性" style="zoom:67%;" /></p>
 <h2 id="效果预期"><a href="#效果预期" class="headerlink" title="效果预期"></a>效果预期</h2><p>一个简单的改进，直接逆转了原本损失函数的缺陷</p>
 <p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/改进后-风格损失分布.png" alt="改进后-风格损失分布"></p>
-<p>该分布图为原本模型使用归一化风格损失输出的结果，可见大的 $\hat{\mathcal{L}}<em>{s}$ 对应欠风格化的图片，小的 $\hat{\mathcal{L}}</em>{s}$ 对应过风格化的图片，可以预见使用该函数训练模型将纠正风格化不平衡的问题，具体效果可见原论文，可以谓之立竿见影<img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/改进后-风格损失vs人工评价.png" alt="改进后-风格损失vs人工评价"></p>
+<p>该分布图为原本模型使用归一化风格损失输出的结果，可见大的 $\hat{\mathcal{L}}_s$ 对应欠风格化的图片，小的 $\hat{\mathcal{L}}_s$ 对应过风格化的图片，可以预见使用该函数训练模型将纠正风格化不平衡的问题，具体效果可见原论文，可以谓之立竿见影<img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/改进后-风格损失vs人工评价.png" alt="改进后-风格损失vs人工评价"></p>
 <p>人工评价也和 $\hat{\mathcal{L}}_{s}$ 是正相关的关系</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文的创新起到了立竿见影的效果，然而究其创新可以说是普普通通，问题很明显，方法也很简单，绝对不存在什么奇思妙想或者开创之举，但效果确实如此明显，为何如今才有人提出。暂能想到的两个原因：</p>
 <ol>
