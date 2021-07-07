@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用于改进任意风格迁移的归一化损失 - 所学所得</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="HonorWithPupils,"> 
+    <meta name="description" content="本文为 Style-Aware Normalized Loss for Improving Arbitrary Style Transfer 的概览导读
+概述现有的任意风格迁移(Arbitrary ,"> 
+    <meta name="author" content="HonorWithPupils"> 
+    <link rel="alternative" href="atom.xml" title="所学所得" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">所学所得</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://honorwithpupils.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">用于改进任意风格迁移的归一化损失</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">用于改进任意风格迁移的归一化损失</h1>
+        <div class="stuff">
+            <span>七月 07, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CV/" rel="tag">CV</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/style-transfer/" rel="tag">style transfer</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>本文为 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.10064">Style-Aware Normalized Loss for Improving Arbitrary Style Transfer</a> 的概览导读</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="现有的任意风格迁移-Arbitrary-Style-Transfer—AST-方法："><a href="#现有的任意风格迁移-Arbitrary-Style-Transfer—AST-方法：" class="headerlink" title="现有的任意风格迁移(Arbitrary Style Transfer—AST)方法："></a>现有的任意风格迁移(Arbitrary Style Transfer—AST)方法：</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://research.google/teams/brain/magenta/">Magenta – Google Research</a> ❓</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1703.06868.pdf">AdaIN</a> 基于模型迭代的方法</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1808.04537">LinearTransfer</a> 通过前馈神经网络学习获得一个风格转移矩阵 learns the transformation matrix with a feed-forward network</li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Park_Arbitrary_Style_Transfer_With_Style-Attentional_Networks_CVPR_2019_paper.pdf">SANet</a> 基于模型迭代的方法</li>
+</ol>
+<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><p>① 欠风格化（Under-Stylization）+ ② 过风格化（Over-Stylization）= 风格化不平衡 （imbalanced style transferability —— IST）</p>
+<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><p>训练样例中不同风格迁移难度不一</p>
+<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><p>风格认知归一化损失</p>
+<h2 id="发掘问题"><a href="#发掘问题" class="headerlink" title="发掘问题"></a>发掘问题</h2><p>本文改进的损失函数是传统的 NST (Neural Style Transfer) Loss</p>
+<script type="math/tex; mode=display">
+\mathcal{L} = \mathcal{L}_{c}(C,P) + \beta\mathcal{L}_{s}(S,P)\\</script><p>分为内容损失函数和风格损失函数两个部分</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathcal{L}_{c}(C,P) &=  MSE(\mathcal{F}(C),\mathcal{F}(P))\\
+\mathcal{L}_{s}(C,P) &=  MSE(\mathcal{G}\circ\mathcal{F}(C),\mathcal{G}\circ\mathcal{F}(P))
+\end{align*}</script><p>其中 $C$ 为内容图，$S$ 为风格图，$P$ 为生成图，$\mathcal{F}$ 为 VGG 网络的特征输出，$\mathcal{G}$ 为格拉姆矩阵；即基于图像迭代的风格迁移方法最基本的损失函数，本文使用其来训练其他模型</p>
+<h3 id="实验一-mathcal-L-s-分布"><a href="#实验一-mathcal-L-s-分布" class="headerlink" title="实验一 $\mathcal{L}_{s}$ 分布"></a>实验一 $\mathcal{L}_{s}$ 分布</h3><p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/风格损失分布.png" alt="风格损失分布"></p>
+<p>上图为针对四种模型，风格损失的分布，得到以下两点：</p>
+<ol>
+<li>不同模型 $\mathcal{L}_{s}$ 分布相似</li>
+<li>$\mathcal{L}<em>{s}$ 不能反映风格化的程度，与直觉相反，$\mathcal{L}</em>{s}$ 高反而过风格化</li>
+</ol>
+<h3 id="实验二-mathcal-L-s-VS-人工评价"><a href="#实验二-mathcal-L-s-VS-人工评价" class="headerlink" title="实验二 $\mathcal{L}_{s}$ VS 人工评价"></a>实验二 $\mathcal{L}_{s}$ VS 人工评价</h3><p>$\mathcal{L}_{s}$ 越大，人工评价反而越好</p>
+<p>如果将人工评价定义为三个等级 GOOD(-1)，OK(0)，BAD(1)，则如下表数据，人工评价和 $\mathcal{L}_{s}$ 是负相关</p>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/风格损失vs人工评价.png" alt="风格损失vs人工评价"></p>
+<h2 id="探讨原因"><a href="#探讨原因" class="headerlink" title="探讨原因"></a>探讨原因</h2><p>在以 Batch 为单位的训练中，如下式</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{s}^{Batch} = \sum_{k\in{1,...,B}} \frac{1}{B}\cdot \mathcal{L}_{s}(S_k,P_k)</script><p>由于不同风格的迁移难度不同（在格拉姆矩阵的评价指标下），换言之实际风格迁移效果与  $\mathcal{L}<em>s$ 不匹配，不同风格的 $\mathcal{L}</em>{s}$ 相差上千倍，经过平均后，大的 $\mathcal{L}_{s}$ 比重太大，导致只针对这些风格迭代模型，使得  $\mathcal{L}_s$ 高的风格过风格化， $\mathcal{L}_s$ 低的风格欠风格化</p>
+<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p>原文作者使用了一个简单的归一化方法，将 $\mathcal{L}_{s}$ 除以其上界，如下式</p>
+<script type="math/tex; mode=display">
+\hat{\mathcal{L}}_{s}=\frac{\mathcal{L}_{s}}{sup\{\mathcal{L}_{s}\}}</script><p>其中 $sup{\mathcal{L}_{s}}$ 为 $\mathcal{L}_s$ 的上届，如下式</p>
+<script type="math/tex; mode=display">
+sup\{\mathcal{L}_{s}(S,P)\} =\frac{||\mathcal{G}\circ\mathcal{F}(S)||^2+||\mathcal{G}\circ\mathcal{F}(P)||^2}{N}</script><p>其依据是 $\mathcal{L}_{s}$ 和其上界的高度相关性</p>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/Ls和其上界的相关性.png" alt="Ls和其上界的相关性"></p>
+<h2 id="效果预期"><a href="#效果预期" class="headerlink" title="效果预期"></a>效果预期</h2><p>一个简单的改进，直接逆转了原本损失函数的缺陷</p>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/改进后-风格损失分布.png" alt="改进后-风格损失分布"></p>
+<p>该分布图为原本模型使用归一化风格损失输出的结果，可见大的 $\hat{\mathcal{L}}<em>{s}$ 对应欠风格化的图片，小的 $\hat{\mathcal{L}}</em>{s}$ 对应过风格化的图片，可以预见使用该函数训练模型将纠正风格化不平衡的问题，具体效果可见原论文，可以谓之立竿见影<img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021-06/改进后-风格损失vs人工评价.png" alt="改进后-风格损失vs人工评价"></p>
+<p>人工评价也和 $\hat{\mathcal{L}}_{s}$ 是正相关的关系</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文的创新起到了立竿见影的效果，然而究其创新可以说是普普通通，问题很明显，方法也很简单，绝对不存在什么奇思妙想或者开创之举，但效果确实如此明显，为何如今才有人提出。暂能想到的两个原因：</p>
+<ol>
+<li>通过格拉姆矩阵来计算风格相似度的方法，略老掉牙了，如今的研究热点早就跑到了各种对抗神经网络、判别器、生成器上了；</li>
+<li>计算机视觉发展日新月异，很多细节都很粗糙，有大量明显的可优化点都被忽视了。</li>
+</ol>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/image-20210707211703072.png" alt="结果"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="http://music.163.com/song/media/outer/url?id=788588.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>
