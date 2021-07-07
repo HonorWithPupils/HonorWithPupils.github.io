@@ -40,14 +40,14 @@
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
-<p>显示 “Hi xxx! You’ve successfully……” 则成功</p>
+<p>显示 “Hi xxx! You’ve successfully……” 则成功。</p>
 <ol start="4">
-<li>创建一个 GitHub 仓库（public）用于发布博客</li>
+<li>创建一个 GitHub 仓库（public）用于发布博客。</li>
 </ol>
 <h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>创建一个文件夹，该文件夹用于你日后本地原文件的存储，然后 CMD 内 cd 到该文件夹下，并输入以下指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli  # 安装 Hexo</span><br><span class="line">hexo init                # 初始化</span><br><span class="line">npm install              # 安装组件</span><br><span class="line">hexo g                   # 生成页面</span><br><span class="line">hexo s                   # 启动预览</span><br></pre></td></tr></table></figure>
 
-<p>然后访问 <code>http://localhost:4000</code> ，出现 Hexo 默认初始化界面</p>
+<p>然后访问 <code>http://localhost:4000</code> ，出现 Hexo 默认初始化界面。</p>
 <p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/07/image-20210707005908359.png" alt="image-20210707005908359"></p>
 <h3 id="Hexo-GitHub-Pages"><a href="#Hexo-GitHub-Pages" class="headerlink" title="Hexo + GitHub Pages"></a>Hexo + GitHub Pages</h3><p>首先安装 hexo-deployer-git，Hexo 用于部署到类GitHub网站上的插件（Gitee 也可以，似乎能解决国内访问困难的问题）：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
@@ -55,23 +55,23 @@
 <p>然后修改全局 _config.yml 的 deploy 项如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:用户名/仓库名</span><br><span class="line">  branch: main # 网上有些老教程写的 master，但是Github早就因为政治正确把默认分支的名字改名了</span><br></pre></td></tr></table></figure>
 
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>以后每次要发布新文章或者修改就</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>以后每次要发布新文章或者修改就，</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new &quot;&lt;name&gt;&quot;     # 新建文章</span><br></pre></td></tr></table></figure>
 
-<p>然后 source 文件夹中会出现一个 &lt;name&gt;.md 文件，就可以使用 Markdown 编辑器在该文件中撰写文章了。</p>
+<p>然后 source 文件夹中会出现一个 &lt;name&gt;.md 文件，就可以使用 Markdown 编辑器在该文件中撰写文章了，</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g                # 生成页面</span><br><span class="line">hexo s                # 本地预览</span><br></pre></td></tr></table></figure>
 
-<p>在 <code>http://localhost:4000</code> 打开预览，没有问题就</p>
+<p>在 <code>http://localhost:4000</code> 打开预览，没有问题就可以部署了。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo d                # 部署</span><br></pre></td></tr></table></figure>
 
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>本博客使用的主题为 <a href="https://github.com/Fechin/hexo-theme-diaspora">hexo-theme-diaspora</a> ，具体方法参考该链接</p>
-<p>这个主题也可以说是比较小众又年久失修，如果需要功能完善的主题，可以选择 <a href="http://theme-next.iissnan.com/">NexT</a> 这样用的人多的主题</p>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>本博客使用的主题为 <a href="https://github.com/Fechin/hexo-theme-diaspora">hexo-theme-diaspora</a> ，具体方法参考该链接。</p>
+<p>这个主题也可以说是比较小众又年久失修，俘获我的主要原因就是主页的第一眼，然而实际用起来真是哪哪哪都有问题。如果需要功能完善的主题，可以选择 <a href="http://theme-next.iissnan.com/">NexT</a> 这样用的人多的主题。</p>
 <p>在这里也大胆地写一下关于这个主题的 todo-list：</p>
 <ol>
 <li>统计网页访问量等（当众处刑；</li>
 <li>音乐音量调节功能；</li>
 <li>可跟随文章滑动的 TOC；</li>
-<li>支持更多的 Markdown 插件。</li>
+<li>支持更多的 Markdown 第一方及第三方语法（目前连<strong>粗体</strong>都不支持）。</li>
 </ol>
 ]]></content>
       <categories>
