@@ -191,4 +191,111 @@ sup\{\mathcal{L}_{s}(S,P)\} =\frac{||\mathcal{G}\circ\mathcal{F}(S)||^2+||\mathc
         <tag>Git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>矩阵论：概述和LU分解</title>
+    <url>/2021/09/23/%E7%9F%A9%E9%98%B5%E8%AE%BA%EF%BC%9A%E6%A6%82%E8%BF%B0%E5%92%8CLU%E5%88%86%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="0-矩阵论介绍"><a href="#0-矩阵论介绍" class="headerlink" title="0. 矩阵论介绍"></a>0. 矩阵论介绍</h1><p>上位数学系课程：泛函，群</p>
+<p>前置课程：高数，线性代数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	一般矩阵 --&gt; 方阵 --&gt; 向量 --&gt; 数</span><br></pre></td></tr></table></figure>
+<p>数是特殊的矩阵 =&gt; 矩阵没有部分数的属性（例：乘法交换律）</p>
+<p>矩阵的三个层面：</p>
+<ol>
+<li>微观层面：数的组合</li>
+<li>宏观层面：完全抽象物，符合某些运算的数学对象（上位数学系视角）</li>
+<li>中间层面：向量组</li>
+</ol>
+<h1 id="1-线性方程组"><a href="#1-线性方程组" class="headerlink" title="1. 线性方程组"></a>1. 线性方程组</h1><h2 id="1-线性方程组解法（线性代数范围）"><a href="#1-线性方程组解法（线性代数范围）" class="headerlink" title="1. 线性方程组解法（线性代数范围）"></a>1. 线性方程组解法（线性代数范围）</h2><ol>
+<li>Gauss 消元法</li>
+<li>求逆矩阵<ol>
+<li>Gauss 消元法</li>
+<li>伴随矩阵</li>
+</ol>
+</li>
+<li>克莱姆法则</li>
+</ol>
+<p>其中克莱姆法则和伴随矩阵复杂度为 O(n*n!)；Gauss消元法和求逆矩阵法则为 O(n^3)</p>
+<h2 id="2-矩阵的LU分解"><a href="#2-矩阵的LU分解" class="headerlink" title="2. 矩阵的LU分解"></a>2. 矩阵的LU分解</h2><p>在此先介绍一个定义</p>
+<p><strong>主元 pivot ：在矩阵消去（例如Gauss消元法）过程中，每列的要保留的非零元素，用它可以把该列其他消去。</strong></p>
+<h3 id="L-D-U分解定理："><a href="#L-D-U分解定理：" class="headerlink" title="L(D)U分解定理："></a>L(D)U分解定理：</h3><p>如果方阵 A 的各阶<strong>顺序主子式</strong>，</p>
+<script type="math/tex; mode=display">
+\Delta_k\neq 0\ \ k=1,2...n</script><p>则存在唯一的主对角线上元素全为1的下三角矩阵（称为单位下三角元素）L 与唯一的<strong>非奇异</strong>上三角矩阵 U，使得</p>
+<script type="math/tex; mode=display">
+A = LU</script><p>或者存在唯一的单位下三角元素 L、单位上三角元素 D 和 对角矩阵，使得</p>
+<script type="math/tex; mode=display">
+A=LDU</script><p>注意，在矩阵乘法结合律和LU分解定理的基础上，LDU分解定理是显然的</p>
+<h3 id="LU分解求法："><a href="#LU分解求法：" class="headerlink" title="LU分解求法："></a>LU分解求法：</h3><script type="math/tex; mode=display">
+\begin{align}
+&A=LU\  and\ L^{-1}L=I \\ \\
+\Rightarrow & L^{-1}A = L^{-1}LU=U \\ \\
+\Rightarrow & L^{-1}(A,I) = (L^{-1}A,L^{-1})=(U,L^{-1})
+\end{align}</script><p>上面的证明过程表明，通过一系列行初等变换，即 $L^{-1}$ 分解为的初等矩阵，可以将增广矩阵 $(A,I)$ 转化为 $(U,L^{-1})$ ，接下来在<strong>求 $L^{-1}$ 的逆即可得到  $L$</strong> </p>
+<p>⭐ 这里介绍一种简单的  $L$ 求法，每次矩阵消去之前都将主元以及其下方元素记下，最后各列除以其主元，即为 $L$</p>
+<p>⭐ 思考：这里能否使用所有的三类初等变换？</p>
+<p>答案：只能使用第三类初等变换，由于 $L^{-1}$ 为单位下三角矩阵，其只由第三类初等变换矩阵构成</p>
+<h3 id="LU分解定理证明"><a href="#LU分解定理证明" class="headerlink" title="LU分解定理证明"></a>LU分解定理证明</h3><ol>
+<li>必要性 $A=LU\Rightarrow \Delta_k\neq0$</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+A_{11} & A_{12} \\
+A_{21} & A_{22}
+\end{pmatrix} 
+=
+\begin{pmatrix}
+L_{11} & 0 \\
+L_{21} & L_{22}
+\end{pmatrix} 
+\begin{pmatrix}
+U_{11} & U_{12} \\
+0 & U_{22}
+\end{pmatrix} 
+=
+\begin{pmatrix}
+L_{11}U_{11} & L_{11}U_{12} \\
+L_{21}U_{11} & L_{21}U_{12}+L_{22}U_{22}
+\end{pmatrix}</script><script type="math/tex; mode=display">
+\begin{align}
+\Rightarrow det(A_{11}) &= det(L_{11}U_{11})\\ \\
+&=det(L_{11})det(U_{11})\\ \\
+&=1\cdot det(U_{11}) \neq 0
+\end{align}</script><p>考虑到 $A_{11}$ 阶数的任意性，以上证明显然对 $A$ 的任意顺序主子式都有效</p>
+<ol>
+<li>充分性 $A=LU\Leftarrow \Delta_k\neq0$</li>
+</ol>
+<p>证明充分性可以从 LU分解求法 入手，可以观察到阻碍任意方阵 LU分解 的唯一障碍，在于主元为 0</p>
+<p>而 LU分解求法 中，主元左侧的元素全为 0，而 $\Delta_k\neq0$ 和初等变换不会改变行列式的非零性，可知主元必不为 0</p>
+<p>所以符合 $\Delta_k\neq0$ 条件的矩阵一定可以通过上述 LU分解求法 得到 $A=LU$</p>
+<h3 id="用途："><a href="#用途：" class="headerlink" title="用途："></a>用途：</h3><p>当 $A=LU$ 时，方程 $Ax=b$ 可以写成 $L(Ux)=b$ ，令 $Ux=y$ ,则有：</p>
+<script type="math/tex; mode=display">
+Ly=b \ \ Ux=y</script><p>即将原本单步问题化为两步，因为矩阵 $L$ 和 $U$ 都是三角矩阵，所以求解上述两个方程比直接求解 $A=LU$ 简单，其复杂度为 O(n^2) </p>
+<p>然而LU分解的复杂度为 O(n^3)，似乎LU分解并不能减少运算量，但LU分解最大的优点在于复用性，其第一步LU分解和第二步求解 $Ux=y$ ，仅与 $A$ 有关，和 $b$ 无关，这意味着不论 $b$ 如何改变，重复做多少次，其增加的复杂度都是 O(n^2)</p>
+<p>当然LU分解法也不是只有好处的，一个明显的缺点为LU只适用于解所有顺序主子式都大于0的，通用性欠缺，但这也可以通过某些方法规避，将在下文介绍</p>
+<h2 id="3-LU分解的几种推广"><a href="#3-LU分解的几种推广" class="headerlink" title="3. LU分解的几种推广"></a>3. LU分解的几种推广</h2><h3 id="带置换的LU分解——PLU分解"><a href="#带置换的LU分解——PLU分解" class="headerlink" title="带置换的LU分解——PLU分解"></a>带置换的LU分解——PLU分解</h3><p>如果存在置换矩阵 P、单位下三角矩阵 L 与 上三角矩阵 U，使得方阵 A 满足</p>
+<script type="math/tex; mode=display">
+PA = LU</script><p>则称上式为 A 的带置换 P 的 LU分解</p>
+<p>具体 P 的选择方法可以使用列选主元法：在每列确定主元的时候，都选择该列主元位置及其下方<strong>绝对值最大</strong>的元素</p>
+<p>这一方法有两个作用：</p>
+<ol>
+<li>可以解决上文所说的缺陷——LU分解只适用于解所有顺序主子式都大于0的</li>
+</ol>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/09/列选主元法保证主元不为0.png" alt="列选主元法保证主元不为0" style="zoom:67%;" /></p>
+<p>上图为LU分解求法中的某个步骤，蓝色为已经选择的主元，白色为0，绿色为供选择下一个的主元的区域</p>
+<p>简单证明：若绿色全为0，则红色区域由于不为方阵，一定可以通过初等变换获得一个全为0的行，左侧又全为0，即整个矩阵通过初等变换得到一个全为0的行，与矩阵可逆矛盾，所以绿色区域一定存在一个不为0的元素，通过列选主元法得到的主元一定不为0</p>
+<ol>
+<li>由于保证消去时候的乘子都不超过1，抑制了数据误差的放大，提高计算稳定性</li>
+</ol>
+<h3 id="非可逆方阵"><a href="#非可逆方阵" class="headerlink" title="非可逆方阵"></a>非可逆方阵</h3><p>分为两种情况：</p>
+<ol>
+<li>不满秩（秩为 r ）方阵：方法和可逆方阵相似，只是 U 方阵对角线会有 n-r 个 0</li>
+<li>长方形（m, n）矩阵：方法和可逆方阵相似，只是 L、U 不为方阵，L 为（m, min(m,n)），U 为（min(m,n), n）</li>
+</ol>
+<h2 id="4-Python-库中的-LU-分解"><a href="#4-Python-库中的-LU-分解" class="headerlink" title="4. Python 库中的 LU 分解"></a>4. Python 库中的 LU 分解</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 调用库</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.linalg <span class="keyword">import</span> lu</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义矩阵</span></span><br><span class="line">A = np.array([[<span class="number">3</span>,<span class="number">1</span>],</span><br><span class="line">              [<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">              [<span class="number">6</span>,<span class="number">2</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认使用 PLU 分解，并允许本文中的几种推广 LU分解</span></span><br><span class="line">P,L,U = lu(A)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>MatrixTheory</category>
+      </categories>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
 </search>
