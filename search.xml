@@ -196,7 +196,7 @@ sup\{\mathcal{L}_{s}(S,P)\} =\frac{||\mathcal{G}\circ\mathcal{F}(S)||^2+||\mathc
     <url>/2021/09/23/%E7%9F%A9%E9%98%B5%E8%AE%BA%EF%BC%9A%E6%A6%82%E8%BF%B0%E5%92%8CLU%E5%88%86%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="0-矩阵论介绍"><a href="#0-矩阵论介绍" class="headerlink" title="0. 矩阵论介绍"></a>0. 矩阵论介绍</h1><p>上位数学系课程：泛函，群</p>
 <p>前置课程：高数，线性代数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">	一般矩阵 --&gt; 方阵 --&gt; 向量 --&gt; 数</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/09/image-20210923121330773.png" alt="image-20210923121330773"></p>
 <p>数是特殊的矩阵 =&gt; 矩阵没有部分数的属性（例：乘法交换律）</p>
 <p>矩阵的三个层面：</p>
 <ol>
