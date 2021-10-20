@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>矩阵论3：子空间和线性变换 - 所学所得</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="HonorWithPupils,"> 
+    <meta name="description" content="1. 线性空间与线性变换（2）矩阵即变换
+子空间的关系定理：子空间判别法数域 $F$ 上的向量空间 $V$ 的非空子集 $U$ 是向量空间（ $V$ 的子空间 ）的充要条件是 $U$ 对 $V$ 中,"> 
+    <meta name="author" content="HonorWithPupils"> 
+    <link rel="alternative" href="atom.xml" title="所学所得" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">所学所得</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://honorwithpupils.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">矩阵论3：子空间和线性变换</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">矩阵论3：子空间和线性变换</h1>
+        <div class="stuff">
+            <span>十月 15, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="1-线性空间与线性变换（2）"><a href="#1-线性空间与线性变换（2）" class="headerlink" title="1. 线性空间与线性变换（2）"></a>1. 线性空间与线性变换（2）</h1><p>矩阵即变换</p>
+<h2 id="子空间的关系"><a href="#子空间的关系" class="headerlink" title="子空间的关系"></a>子空间的关系</h2><h4 id="定理：子空间判别法"><a href="#定理：子空间判别法" class="headerlink" title="定理：子空间判别法"></a>定理：子空间判别法</h4><p>数域 $F$ 上的向量空间 $V$ 的非空子集 $U$ 是向量空间（ $V$ 的子空间 ）的充要条件是 $U$ 对 $V$ 中规定的加法和数乘都封闭。</p>
+<hr>
+<h4 id="交与和"><a href="#交与和" class="headerlink" title="交与和"></a>交与和</h4><p>定理（交集）：设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，则它们的交集 $V_1\cap V_2$ 也是 $V$ 的子空间。</p>
+<p>定理（和）：设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，定义 $V_1,V_2$ 的和如下，</p>
+<script type="math/tex; mode=display">
+\def\bm{\boldsymbol} \def\span{\text{span}}
+\begin{align}
+V_1+V_2 &\overset{\underset{\mathrm{def}}{}}{=} \{ \bm\alpha+\bm\beta|\bm\alpha\in V_1,\bm\beta \in V_2 \} 
+\\ \\
+&= \span(\bm\alpha_1,\dots,\bm\alpha_s,\bm\beta_1,\dots,\bm\beta_t)
+\\ \\
+\text{where   } &V_1 = \span(\bm\alpha_1,\dots,\bm\alpha_s)
+\\ \\
+&V_2 = \span(\bm\beta_1,\dots,\bm\beta_t)
+\end{align}</script><p>其也是 $V$ 的子空间。</p>
+<p>⭐问题：为何不研究子空间的并集</p>
+<p>反例：由三维空间的 $xy$ 平面和 $yz$ 平面给组成的并集，并不对加法封闭。</p>
+<p>本质：交与和 是对子空间的基进行交和并运算（用线性相关替代重复的意义下），而不是对于集合进行交和并运算，恰巧集合的交和基的交相同，而集合的并和基的并不相同</p>
+<hr>
+<h4 id="定理：维数公式"><a href="#定理：维数公式" class="headerlink" title="定理：维数公式"></a>定理：维数公式</h4><p>设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个有限维子空间，则它们的 交 和 和 都是有限维的，并且</p>
+<script type="math/tex; mode=display">
+\def\dim{\text{dim}}
+\dim(V_1+V_2) = \dim(V_1)+\dim(V_2)-dim(V_1\cap V_2)</script><hr>
+<h4 id="直和（direct-sum）"><a href="#直和（direct-sum）" class="headerlink" title="直和（direct sum）"></a>直和（direct sum）</h4><p>设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，如果</p>
+<script type="math/tex; mode=display">
+V_1\cap V_2 = \{ \theta \}</script><p>则称 $V_1+V_2$ 为 $V_1,V_2$ 的直和，记作 $V_1\oplus V_2$ 。</p>
+<hr>
+<h4 id="定理：直和分解"><a href="#定理：直和分解" class="headerlink" title="定理：直和分解"></a>定理：直和分解</h4><p>设 $V_1$ 是数域 $F$ 上的线性空间 $V$ 的一个子空间，则一定存在 $V$ 的另一个子空间 $V_2$（仅当 $V_1 = {\theta }$ 时唯一，为 $V$），使得空间 $V$ 具有直和分解，</p>
+<script type="math/tex; mode=display">
+V = V_1 \oplus V_2</script><p>并称 $V_1,V_2$ 是一对互补的子空间，或者 $V_1$ 是 $V_2$ 的补子空间。</p>
+<p>⭐ 直和分解不唯一</p>
+<p>⭐ 三个子空间两两直和，其不一定直和 $ \Leftrightarrow $ 三个向量两两线性无关，其不一定线性无关</p>
+<h2 id="线性变换"><a href="#线性变换" class="headerlink" title="线性变换"></a>线性变换</h2><h3 id="几个简单的线性变换"><a href="#几个简单的线性变换" class="headerlink" title="几个简单的线性变换"></a>几个简单的线性变换</h3><h4 id="旋转变换：逆时针旋转角-theta"><a href="#旋转变换：逆时针旋转角-theta" class="headerlink" title="旋转变换：逆时针旋转角 $\theta$"></a>旋转变换：逆时针旋转角 $\theta$</h4><script type="math/tex; mode=display">
+\bm y = 
+\begin{pmatrix}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{pmatrix} \bm x</script><h4 id="反射变换：关于-l-theta-对称"><a href="#反射变换：关于-l-theta-对称" class="headerlink" title="反射变换：关于 $l_\theta$ 对称"></a>反射变换：关于 $l_\theta$ 对称</h4><script type="math/tex; mode=display">
+\bm y = 
+\begin{pmatrix}
+\cos2\theta & \sin2\theta \\
+\sin2\theta & -\cos2\theta
+\end{pmatrix} \bm x</script><h4 id="伸缩变换"><a href="#伸缩变换" class="headerlink" title="伸缩变换"></a>伸缩变换</h4><script type="math/tex; mode=display">
+\bm y = 
+\begin{pmatrix}
+a & 0 \\
+0 & b
+\end{pmatrix} \bm x</script><h4 id="投影变换"><a href="#投影变换" class="headerlink" title="投影变换"></a>投影变换</h4><script type="math/tex; mode=display">
+\bm y = 
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 0 \\
+\end{pmatrix} \bm x</script><p>其中旋转变换、反射变换和伸缩变换可逆，是双射，即同构变换；而投影变换不可逆，是单射，即同态变换</p>
+<hr>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>设 $V_1,V_2$ 是数域 $F$ 上的线性空间，映射 $T: V_1\to V_2$ ，如果这个映射保持加法运算和数乘运算，即</p>
+<script type="math/tex; mode=display">
+\forall \bm \alpha,\bm \beta \in V_1,k\in F
+\begin{cases}
+&T(\bm \alpha + \bm \beta) =T(\bm \alpha) + T(\bm \beta) \\\\
+&T(k\bm\alpha)=kT(\bm \alpha) 
+\end{cases}</script><p>则称 $T$ 为 $V_1$ 到 $V_2$ 上的线性映射。</p>
+<p>特别的，当 $V_1=V_2=V$ 时，称 $T$ 为 $V$上的线性变换。</p>
+<h5 id="例1：不是线性映射"><a href="#例1：不是线性映射" class="headerlink" title="例1：不是线性映射"></a>例1：不是线性映射</h5><script type="math/tex; mode=display">
+T:\mathbb{R}^2\to\mathbb{R}^2\\
+\pmatrix{x_1\\x_2} \mapsto \pmatrix{x_1x_2\\x_1+x_2}</script><h5 id="例2：是线性映射，不是线性变换"><a href="#例2：是线性映射，不是线性变换" class="headerlink" title="例2：是线性映射，不是线性变换"></a>例2：是线性映射，不是线性变换</h5><script type="math/tex; mode=display">
+T:\mathbb{R}^3\to\mathbb{R}^2\\
+\pmatrix{x_1\\x_2\\x_3} \mapsto \pmatrix{x_1+x_2\\x_3-x_2}</script><hr>
+<h3 id="线性变换的矩阵表达"><a href="#线性变换的矩阵表达" class="headerlink" title="线性变换的矩阵表达"></a>线性变换的矩阵表达</h3><h4 id="矩阵即变换（映射）"><a href="#矩阵即变换（映射）" class="headerlink" title="矩阵即变换（映射）"></a>矩阵即变换（映射）</h4><p>很明显 $T(\bm x)=A_{m\times n}\bm x$ 是一个映射，且保持加法运算和数乘运算，所以矩阵是一种线性映射</p>
+<h4 id="变换（映射）即矩阵"><a href="#变换（映射）即矩阵" class="headerlink" title="变换（映射）即矩阵"></a>变换（映射）即矩阵</h4><p>设 $\bm \alpha_1,…,\bm \alpha_n$ 是 $V_1$ 的一组基， $\bm \beta_1,…,\bm \beta_m$ 是 $V_2$ 的一组基，存在线性映射 $T: V_1\to V_2$ ，则</p>
+<script type="math/tex; mode=display">
+T(\bm \alpha_i) = a_{1i}\bm\beta_1+...+a_{mi}\bm\beta_m</script><p>定义符号</p>
+<script type="math/tex; mode=display">
+T(\bm \alpha_1,...,\bm \alpha_n) = (T(\bm\alpha_1),...,T(\bm\alpha_n))</script><p>从而有</p>
+<script type="math/tex; mode=display">
+T(\bm \alpha_1,...,\bm \alpha_n) = (\bm \beta_1,...,\bm \beta_m)A</script><p>其中 $A=[a<em>{ij}]</em>{m\times n}$</p>
+<p>向量空间中的任何向量都是一组基的线性组合，因此确定了基的变换，就确定了其中任意一个向量的变换方式，所以线性映射可以用矩阵表示。</p>
+<p>从而有对于任何 $\bm \alpha=(\bm \alpha_1,…,\bm \alpha_n)\bm x \in V_1$ ，通过线性映射 $T$ 得到的 $\bm \beta=(\bm \beta_1,…,\bm \beta_n)\bm y \in V_2$ </p>
+<script type="math/tex; mode=display">
+\begin{align}
+T((\bm \alpha_1,...,\bm \alpha_n)\bm x) &= (\bm \beta_1,...,\bm \beta_m)A\bm x \\
+& = (\bm \beta_1,...,\bm \beta_m)\bm y
+\end{align}</script><script type="math/tex; mode=display">
+\Rightarrow \bm y = A\bm x</script><p>当 $V_1=V_2$ ，即线性变换；不失一般性地假定 $(\bm \alpha_1,…,\bm \alpha_n) = I$ ，则 $T(x)=Ax$ ；而在证明过程中转置 $(\bm \alpha_1,…,\bm \alpha_n)$ ，则会得到 $T(x)=xA’$ ，即线性变换的左乘形式。</p>
+<h5 id="例-1："><a href="#例-1：" class="headerlink" title="例 1："></a>例 1：</h5><p>所有无限次可导实函数的集合 $V$ 是一个线性空间，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+D:V&\to V\\
+f(x)&\mapsto f'(x)
+\end{align}</script><p>求导运算是一个线性变换。</p>
+<h5 id="例-2："><a href="#例-2：" class="headerlink" title="例 2："></a>例 2：</h5><script type="math/tex; mode=display">
+\begin{align}
+J:C[a,b]&\to C[a,b]\\
+f(x)&\mapsto \int_a^xf(u)du
+\end{align}</script><p>积分运算也是一个线性变换</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="https://music.163.com/song/media/outer/url?id=31587842.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>
