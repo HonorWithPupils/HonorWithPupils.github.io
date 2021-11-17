@@ -70,7 +70,7 @@
 \end{align}</script><p>注意 $X^TX$ 存在逆，这要求 $X$ 是列无关的，这个要求在梯度下降法的证明中也是需要的，若这个要求不符合，意味着存在不知唯一一个 $w$ 满足残差平方和最小。</p>
 <p>由于当数据规模极其巨大的时候，计算 $X^TX$ 是不现实的，所以通常情况下会使用迭代法。</p>
 <h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><script type="math/tex; mode=display">
-\bm w_{i+1} = \bm w_i -\eta\grad f(\bm w_i)</script><h4 id="引理-L-smooth-条件"><a href="#引理-L-smooth-条件" class="headerlink" title="引理 L-smooth 条件"></a>引理 L-smooth 条件</h4><p>若函数 $f(x)$ 对于任意两个$x,y$，存在一个常数 $L&gt;0$ 使得，</p>
+\bm w_{i+1} = \bm w_i -\eta\grad f(\bm w_i)</script><h3 id="引理-L-smooth-条件"><a href="#引理-L-smooth-条件" class="headerlink" title="引理 L-smooth 条件"></a>引理 L-smooth 条件</h3><p>若函数 $f(x)$ 对于任意两个$x,y$，存在一个常数 $L&gt;0$ 使得，</p>
 <script type="math/tex; mode=display">
 ||\grad f(x)-\grad f(y)||\le L||x-y||</script><p>则称 $f(x)$ 符合 L-Lipschitz 条件。</p>
 <p>证明：</p>
@@ -80,7 +80,7 @@
 & = 2||X^TX(\bm w_1-\bm w_2)|| \\ \\
 & \le  ||X^TX||\cdot 2||\bm w_1-\bm w_2||
 \end{align}</script><p>另 $L=2||X^TX||&gt;0$，所以函数 $f(\bm w)$ 符合  L-smooth 条件。</p>
-<h4 id="引理-L-smooth-等价形式"><a href="#引理-L-smooth-等价形式" class="headerlink" title="引理 L-smooth 等价形式"></a>引理 L-smooth 等价形式</h4><script type="math/tex; mode=display">
+<h3 id="引理-L-smooth-等价形式"><a href="#引理-L-smooth-等价形式" class="headerlink" title="引理 L-smooth 等价形式"></a>引理 L-smooth 等价形式</h3><script type="math/tex; mode=display">
 |f(x)-f(y)-\grad f(y)^T(x-y)|\le \frac{L}{2}||x-y||^2</script><p>证明：</p>
 <p>构造一个插值函数 $g(t) = f(y+t(x-y))$，对 $t$ 求导，</p>
 <script type="math/tex; mode=display">
@@ -98,7 +98,7 @@ f(x)-f(y)=g(1)-g(0) =\int_0^1\grad f(y+t(x-y))^T(x-y)dt</script><p>将 上式代
 \end{align}</script><p>其中第3行使用了和的绝对值小于等于绝对值的和，第4行使用了西施瓦茨不等式 $a^Tb\le\sqrt{||a||^2||b||^2}$ ，第5行代入了 L-smooth 条件。</p>
 <p>当 $f$ 是凸函数时，能保证 $f(x)-f(y)-\grad f(y)^T(x-y)\ge0$ ，可得到</p>
 <script type="math/tex; mode=display">
-f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h4 id="证明-收敛性（固定步长）"><a href="#证明-收敛性（固定步长）" class="headerlink" title="证明 收敛性（固定步长）"></a>证明 收敛性（固定步长）</h4><p>由于 $\grad^2f(\bm w)= 2X^TX$ 半正定，所以 $f(w)$ 是凸函数，因此</p>
+f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h3 id="证明-收敛性（固定步长）"><a href="#证明-收敛性（固定步长）" class="headerlink" title="证明 收敛性（固定步长）"></a>证明 收敛性（固定步长）</h3><p>由于 $\grad^2f(\bm w)= 2X^TX$ 半正定，所以 $f(w)$ 是凸函数，因此</p>
 <script type="math/tex; mode=display">
 \begin{align}
 f(\bm w_{i+1}) &\le f(\bm w_i) +\grad f(\bm w_i)^T(\bm w_{i+1}-\bm w)+\frac{L}{2}||\bm w_{i+1}-\bm w||^2 \\ \\
