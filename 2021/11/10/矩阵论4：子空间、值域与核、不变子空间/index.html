@@ -12,7 +12,7 @@
     <meta name="keywords" content="HonorWithPupils,"> 
     <meta name="description" content="本章介绍一些之前几篇文章为了逻辑顺畅暂且搁置的知识。
 子空间在介绍本章的主角线性空间之前，我们要先铺垫一下子空间的概念。
-定义定义：设有线性空间 $V_1$ 及 $V_2$ 。如果 $V_1\sub,"> 
+定义定义：设有线性空间 $\def\bm{\boldsymbol} V_1$,"> 
     <meta name="author" content="HonorWithPupils"> 
     <link rel="alternative" href="atom.xml" title="所学所得" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -56,9 +56,9 @@
         <div class="content markdown">
             <p>本章介绍一些之前几篇文章为了逻辑顺畅暂且搁置的知识。</p>
 <h2 id="子空间"><a href="#子空间" class="headerlink" title="子空间"></a>子空间</h2><p>在介绍本章的主角线性空间之前，我们要先铺垫一下子空间的概念。</p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义：设有线性空间 $V_1$ 及 $V_2$ 。如果 $V_1\subseteq V_2$，则称  $V_1$ 是 $V_2$ 的子空间。</p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义：设有线性空间 $\def\bm{\boldsymbol} V_1$ 及 $V_2$ 。如果 $V_1\subseteq V_2$，则称  $V_1$ 是 $V_2$ 的子空间。</p>
 <p>例：$V$ 和 ${\bm\theta}$ 是 $V$ 的子空间，称它们为平凡子空间，其余的为非平凡子空间。</p>
-<p>例：集合 $T={\boldsymbol x|\boldsymbol x=[x_1,x_2,0]^T,\ x_1,x_2\in R}$ 是一个向量空间，它是 $R^3$ 中的向量 $[x_1,x_2,x_3]^T$ 在 $x_1x_2$ 平面上的投影空间，是 $R^3$ 的一个子空间。</p>
+<p>例：集合 $\lbrace T=\boldsymbol x|\boldsymbol x=[x_1,x_2,0]^T,\ x_1,x_2\in R \rbrace$ 是一个向量空间，它是 $R^3$ 中的向量 $[x_1,x_2,x_3]^T$ 在 $x_1x_2$ 平面上的投影空间，是 $R^3$ 的一个子空间。</p>
 <p>例：$R^3$ 不是 $R^4$ 的子空间。</p>
 <h4 id="定理：子空间判别法"><a href="#定理：子空间判别法" class="headerlink" title="定理：子空间判别法"></a>定理：子空间判别法</h4><p>数域 $F$ 上的向量空间 $V$ 的非空子集 $U$ 是向量空间（ $V$ 的子空间 ）的充要条件是 $U$ 对 $V$ 中规定的加法和数乘都封闭。</p>
 <p>⭐ 这意味着子空间只要对原空间的两个运算封闭即可，</p>
@@ -117,10 +117,14 @@ V_\lambda=\{ \bm x|T(\bm x)=\lambda \bm x, \bm x \in V \}</script><p>也是 $T$ 
 <h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><h5 id="定理-1："><a href="#定理-1：" class="headerlink" title="定理 1："></a>定理 1：</h5><p>线性变换 $T$ 的不变空间的交和和仍然是 $T$ 的不变子空间。</p>
 <h5 id="定理-2："><a href="#定理-2：" class="headerlink" title="定理 2："></a>定理 2：</h5><p>线性空间 $V$ 上的线性变换 $T$ 有非平凡的不变子空间的充要条件是 $T$ 在 $V$ 的一组基下的矩阵表示为（相似于）块上三角矩阵，即形如，</p>
 <script type="math/tex; mode=display">
-\pmatrix{A_{11}&A_{12}\\ O&A_{22}}</script><p>对应的不变子空间形如 $(x<em>1,…,x_m,0,…,0)$ ，其中 $m=dim(A</em>{11})$ 。</p>
-<h5 id="定理-3："><a href="#定理-3：" class="headerlink" title="定理 3："></a>定理 3：</h5><p>线性空间 $V$ 上的线性变换 $T$ 在 $V$ 的一组基下的矩阵表达式为块对角矩阵 $diag{ A_1,A_2,…,A_s}$ 的充要条件是 $V$ 可以分解为 $T$ 的不变子空间的直和</p>
+\pmatrix{A_{11}&A_{12}\\ O&A_{22}}</script><p>对应的不变子空间形如 $(x_1,\dots,x_m,0,\dots,0)$ 。</p>
+<p>其中 $m$ 为 $dim(A_{11})$。</p>
+<h5 id="定理-3："><a href="#定理-3：" class="headerlink" title="定理 3："></a>定理 3：</h5><p>线性空间 $V$ 上的线性变换 $T$ 在 $V$ 的一组基下的矩阵表达式为块对角矩阵 $diag\lbrace A_1,A_2,…,A_s\rbrace$ 的充要条件是 $V$ 可以分解为 $T$ 的不变子空间的直和</p>
 <script type="math/tex; mode=display">
-V=W_1\oplus W_2\oplus ...\oplus W_s</script><p>若 $T$ 可对角化，本定理的块对角矩阵即可变为对角矩阵，其中 $A<em>i=\lambda_i$ ，$W_i = V</em>{\lambda_i}={ \bm x|T(\bm x)=\lambda_i \bm x, \bm x \in V }$。这个定理既可以求不变子空间，也为下一节中的约当型做出了铺垫。</p>
+V=W_1\oplus W_2\oplus ...\oplus W_s</script><p>若 $T$ 可对角化，本定理的块对角矩阵即可变为对角矩阵，其中</p>
+<script type="math/tex; mode=display">
+A_i=\lambda_i \\
+W_i = V_{\lambda_i}=\lbrace \bm x|T(\bm x)=\lambda_i \bm x, \bm x \in V \rbrace</script><p>这个定理既可以求不变子空间，也为下一节中的约当型做出了铺垫。</p>
 <h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><ol>
 <li>子空间的判别；</li>
 <li>求不变子空间。</li>
