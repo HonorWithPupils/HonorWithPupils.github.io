@@ -10,12 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="HonorWithPupils,"> 
-    <meta name="description" content="最小二乘法的基本原理如下，寻找参数 $w$ 使得残差平方和最小，
+    <meta name="description" content="最小二乘法的基本原理如下，针对线性回归模型 $\def\bm{\boldsymbol} y=\bm w^T\bm x$，寻找参数 $w$ 使得残差平方和最小，
 
-\def\part{\partial}
-\def\grad{\nabla}
-\def\bm{\boldsymbol}
-\min_\,"> 
+\def\part{\partial,"> 
     <meta name="author" content="HonorWithPupils"> 
     <link rel="alternative" href="atom.xml" title="所学所得" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -57,20 +54,22 @@
 
         </div>
         <div class="content markdown">
-            <p>最小二乘法的基本原理如下，寻找参数 $w$ 使得残差平方和最小，</p>
+            <p>最小二乘法的基本原理如下，针对线性回归模型 $\def\bm{\boldsymbol} y=\bm w^T\bm x$，寻找参数 $w$ 使得残差平方和最小，</p>
 <script type="math/tex; mode=display">
 \def\part{\partial}
 \def\grad{\nabla}
-\def\bm{\boldsymbol}
 \min_\bm w f(\bm w)=||X\bm w-\bm y||^2</script><h2 id="直接求解"><a href="#直接求解" class="headerlink" title="直接求解"></a>直接求解</h2><script type="math/tex; mode=display">
 \begin{align}
 \frac{\part f(\bm w)}{\part \bm w}&=\frac{\part(X\bm w-\bm y)^T(X\bm w-\bm y)}{\part \bm w} \\ \\
 &= 2X^T(X\bm w-\bm y) = 0 \\ \\
 \Rightarrow \ & \bm w=(X^TX)^{-1}X\bm y
-\end{align}</script><p>注意 $X^TX$ 存在逆，这要求 $X$ 是列无关的，这个要求在梯度下降法的证明中也是需要的，若这个要求不符合，意味着存在不知唯一一个 $w$ 满足残差平方和最小。</p>
-<p>由于当数据规模极其巨大的时候，计算 $X^TX$ 是不现实的，所以通常情况下会使用迭代法。</p>
+\end{align}</script><p>又因为二阶导数半正定，所以这个解是极值点。</p>
+<script type="math/tex; mode=display">
+\frac{\part^2f(\bm w)}{\part\bm w^2} = 2X^TX\succeq0</script><p>注意 $X^TX$ 存在逆，这要求 $X$ 是列无关的，这个要求在梯度下降法的证明中也是需要的，若这个要求不符合，意味着存在不知唯一一个 $w$ 满足残差平方和最小。</p>
+<p>由于当数据规模极其巨大的时候，计算 $X^TX$ 是不现实的，所以通常情况下会使用迭代法，而考虑到 $X^TX$ 是一个半正定矩阵，最小二乘问题只需要凸优化方法即可。</p>
 <h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><script type="math/tex; mode=display">
-\bm w_{i+1} = \bm w_i -\eta\grad f(\bm w_i)</script><h3 id="引理-L-smooth-条件"><a href="#引理-L-smooth-条件" class="headerlink" title="引理 L-smooth 条件"></a>引理 L-smooth 条件</h3><p>若函数 $f(x)$ 对于任意两个$x,y$，存在一个常数 $L&gt;0$ 使得，</p>
+\bm w_{i+1} = \bm w_i -\eta\grad f(\bm w_i)</script><p>其中 $\eta$ 为学习率，是一个可供选择的常数或者变量。</p>
+<h3 id="引理-L-smooth-条件"><a href="#引理-L-smooth-条件" class="headerlink" title="引理 L-smooth 条件"></a>引理 L-smooth 条件</h3><p>若函数 $f(x)$ 对于任意两个$x,y$，存在一个常数 $L&gt;0$ 使得，</p>
 <script type="math/tex; mode=display">
 ||\grad f(x)-\grad f(y)||\le L||x-y||</script><p>则称 $f(x)$ 符合 L-Lipschitz 条件。</p>
 <p>证明：</p>
@@ -91,14 +90,14 @@ f(x)-f(y)=g(1)-g(0) =\int_0^1\grad f(y+t(x-y))^T(x-y)dt</script><p>将 上式代
 \begin{align}
 \text{left} &= |\int_0^1\grad f(y+t(x-y))^T(x-y)dt-\grad f(y)^T(x-y)| \\ \\
 & = |\int_0^1[\grad f(y+t(x-y))^T(x-y) - \grad f(y)^T(x-y)]dt| \\ \\
-& \le \int_0^1|[\grad f(y+t(x-y))-\grad f(y)]^T(x-y)|dt \\ \\
+& \le \int_0^1|\grad f(y+t(x-y))-\grad f(y)]^T(x-y)|dt \\ \\
 & \le \int_0^1 \sqrt{||\grad f(y+t(x-y))-\grad f(y)||^2||x-y||^2} dt \\ \\
 & \le \int_0^1 \sqrt{L||t(x-y)||^2||x-y||^2} dt \\ \\
 & =L||x-y||^2\int_0^1tdt=\frac{L}{2}||x-y||^2
 \end{align}</script><p>其中第3行使用了和的绝对值小于等于绝对值的和，第4行使用了西施瓦茨不等式 $a^Tb\le\sqrt{||a||^2||b||^2}$ ，第5行代入了 L-smooth 条件。</p>
-<p>当 $f$ 是凸函数时，能保证 $f(x)-f(y)-\grad f(y)^T(x-y)\ge0$ ，可得到</p>
+<p>删去绝对值，可得到，</p>
 <script type="math/tex; mode=display">
-f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h3 id="证明-收敛性（固定步长）"><a href="#证明-收敛性（固定步长）" class="headerlink" title="证明 收敛性（固定步长）"></a>证明 收敛性（固定步长）</h3><p>由于 $\grad^2f(\bm w)= 2X^TX$ 半正定，所以 $f(w)$ 是凸函数，因此</p>
+f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h3 id="证明-收敛性（固定学习率）"><a href="#证明-收敛性（固定学习率）" class="headerlink" title="证明 收敛性（固定学习率）"></a>证明 收敛性（固定学习率）</h3><p>接下来证明梯度下降法在最小二乘问题上的收敛性，注意这个证明具有一般性（符合 L-smooth 条件的凸函数），所以会略显冗长。</p>
 <script type="math/tex; mode=display">
 \begin{align}
 f(\bm w_{i+1}) &\le f(\bm w_i) +\grad f(\bm w_i)^T(\bm w_{i+1}-\bm w)+\frac{L}{2}||\bm w_{i+1}-\bm w||^2 \\ \\
@@ -107,7 +106,7 @@ f(\bm w_{i+1}) &\le f(\bm w_i) +\grad f(\bm w_i)^T(\bm w_{i+1}-\bm w)+\frac{L}{2
 \end{align}</script><p>选择 $\eta L\le 1$ ，则 $1-\frac{L\eta}{2}\ge\frac{1}{2}$ ，所以得到：</p>
 <script type="math/tex; mode=display">
 f(\bm w_{i+1})\le f(\bm w_i) - \frac 1 2\eta||\grad f(\bm w_i)||^2</script><p>观察上面的公式，我们会发现 $f(\bm w)$ 每次迭代，都会让 $f(\bm w)$ 变得更小，朝着更好的方向去前进，也就是单调性。接下来我们继续证明收敛性。</p>
-<p>假设最优解 $f(\bm w^*)$ 为最优解，那么根据泰勒一阶展开：</p>
+<p>假设最优解 $f(\bm w^*)$ 为最优解，那么根据泰勒一阶展开，以及 $f(\bm w)$ 是一个凸函数：</p>
 <script type="math/tex; mode=display">
 f(\bm w_i)\le f(\bm w^*)+\grad f(\bm w_i)^T(\bm w_i-\bm w^*)</script><p>代入上式子，</p>
 <script type="math/tex; mode=display">
@@ -131,7 +130,7 @@ f(\bm w_{k}) - f(\bm w^*) &\le \frac{1}{2\eta}\left( ||\bm w_{k-1} -\bm w^*||^2-
 &\le \frac{1}{2\eta}||\bm w_0 -\bm w^*||^2 \\ \\
 \sum_{i=1}^k[f(\bm w_k) - f(\bm w^*)] &\le \sum_{i=1}^k[f(\bm w_i) - f(\bm w^*)] \le \frac{1}{2\eta}||\bm w_0 -\bm w^*||^2 \\ \\
 f(\bm w_k) &\le f(\bm w^*)+\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2
-\end{align}</script><p>证明完毕。随着 $k$ 越来越大，误差 $\epsilon=\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2$ 也越来越小，从上面得到的公式我们可以知道 梯度下降法的收敛步数为 $O(\frac{1}{\epsilon})$ ，为次线性收敛 。</p>
+\end{align}</script><p>证明完毕。随着 $k$ 越来越大，误差 $\epsilon=\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2$ 也越来越小，从上面得到的公式我们可以知道在一个符合 L-smooth 的凸函数上，梯度下降法的收敛步数为 $O(\frac{1}{\epsilon})$ ，是次线性收敛 ；若在证明中加入强凸的属性，则梯度下降法的收敛步数为 $O(log(\frac{1}{\epsilon}))$ ，是线性收敛。</p>
 <h2 id="牛顿法"><a href="#牛顿法" class="headerlink" title="牛顿法"></a>牛顿法</h2><p>由泰勒展开式得，</p>
 <script type="math/tex; mode=display">
 f(\bm w_i +\bm d) = f(\bm w_i)+\grad f(\bm w_i)^T\bm d + \frac{1}{2}\bm d^T\grad^2f(\bm w_i)\bm d + o(||\bm d||^2)</script><p>舍弃高阶项，并对 $\bm d$ 求导，</p>

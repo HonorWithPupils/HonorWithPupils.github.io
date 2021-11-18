@@ -594,20 +594,22 @@ W_i = V_{\lambda_i}=\lbrace \bm x|T(\bm x)=\lambda_i \bm x, \bm x \in V \rbrace<
   <entry>
     <title>统计学习: 最小二乘法</title>
     <url>/2021/11/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0-%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/</url>
-    <content><![CDATA[<p>最小二乘法的基本原理如下，寻找参数 $w$ 使得残差平方和最小，</p>
+    <content><![CDATA[<p>最小二乘法的基本原理如下，针对线性回归模型 $\def\bm{\boldsymbol} y=\bm w^T\bm x$，寻找参数 $w$ 使得残差平方和最小，</p>
 <script type="math/tex; mode=display">
 \def\part{\partial}
 \def\grad{\nabla}
-\def\bm{\boldsymbol}
 \min_\bm w f(\bm w)=||X\bm w-\bm y||^2</script><h2 id="直接求解"><a href="#直接求解" class="headerlink" title="直接求解"></a>直接求解</h2><script type="math/tex; mode=display">
 \begin{align}
 \frac{\part f(\bm w)}{\part \bm w}&=\frac{\part(X\bm w-\bm y)^T(X\bm w-\bm y)}{\part \bm w} \\ \\
 &= 2X^T(X\bm w-\bm y) = 0 \\ \\
 \Rightarrow \ & \bm w=(X^TX)^{-1}X\bm y
-\end{align}</script><p>注意 $X^TX$ 存在逆，这要求 $X$ 是列无关的，这个要求在梯度下降法的证明中也是需要的，若这个要求不符合，意味着存在不知唯一一个 $w$ 满足残差平方和最小。</p>
-<p>由于当数据规模极其巨大的时候，计算 $X^TX$ 是不现实的，所以通常情况下会使用迭代法。</p>
+\end{align}</script><p>又因为二阶导数半正定，所以这个解是极值点。</p>
+<script type="math/tex; mode=display">
+\frac{\part^2f(\bm w)}{\part\bm w^2} = 2X^TX\succeq0</script><p>注意 $X^TX$ 存在逆，这要求 $X$ 是列无关的，这个要求在梯度下降法的证明中也是需要的，若这个要求不符合，意味着存在不知唯一一个 $w$ 满足残差平方和最小。</p>
+<p>由于当数据规模极其巨大的时候，计算 $X^TX$ 是不现实的，所以通常情况下会使用迭代法，而考虑到 $X^TX$ 是一个半正定矩阵，最小二乘问题只需要凸优化方法即可。</p>
 <h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><script type="math/tex; mode=display">
-\bm w_{i+1} = \bm w_i -\eta\grad f(\bm w_i)</script><h3 id="引理-L-smooth-条件"><a href="#引理-L-smooth-条件" class="headerlink" title="引理 L-smooth 条件"></a>引理 L-smooth 条件</h3><p>若函数 $f(x)$ 对于任意两个$x,y$，存在一个常数 $L&gt;0$ 使得，</p>
+\bm w_{i+1} = \bm w_i -\eta\grad f(\bm w_i)</script><p>其中 $\eta$ 为学习率，是一个可供选择的常数或者变量。</p>
+<h3 id="引理-L-smooth-条件"><a href="#引理-L-smooth-条件" class="headerlink" title="引理 L-smooth 条件"></a>引理 L-smooth 条件</h3><p>若函数 $f(x)$ 对于任意两个$x,y$，存在一个常数 $L&gt;0$ 使得，</p>
 <script type="math/tex; mode=display">
 ||\grad f(x)-\grad f(y)||\le L||x-y||</script><p>则称 $f(x)$ 符合 L-Lipschitz 条件。</p>
 <p>证明：</p>
@@ -628,14 +630,14 @@ f(x)-f(y)=g(1)-g(0) =\int_0^1\grad f(y+t(x-y))^T(x-y)dt</script><p>将 上式代
 \begin{align}
 \text{left} &= |\int_0^1\grad f(y+t(x-y))^T(x-y)dt-\grad f(y)^T(x-y)| \\ \\
 & = |\int_0^1[\grad f(y+t(x-y))^T(x-y) - \grad f(y)^T(x-y)]dt| \\ \\
-& \le \int_0^1|[\grad f(y+t(x-y))-\grad f(y)]^T(x-y)|dt \\ \\
+& \le \int_0^1|\grad f(y+t(x-y))-\grad f(y)]^T(x-y)|dt \\ \\
 & \le \int_0^1 \sqrt{||\grad f(y+t(x-y))-\grad f(y)||^2||x-y||^2} dt \\ \\
 & \le \int_0^1 \sqrt{L||t(x-y)||^2||x-y||^2} dt \\ \\
 & =L||x-y||^2\int_0^1tdt=\frac{L}{2}||x-y||^2
 \end{align}</script><p>其中第3行使用了和的绝对值小于等于绝对值的和，第4行使用了西施瓦茨不等式 $a^Tb\le\sqrt{||a||^2||b||^2}$ ，第5行代入了 L-smooth 条件。</p>
-<p>当 $f$ 是凸函数时，能保证 $f(x)-f(y)-\grad f(y)^T(x-y)\ge0$ ，可得到</p>
+<p>删去绝对值，可得到，</p>
 <script type="math/tex; mode=display">
-f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h3 id="证明-收敛性（固定步长）"><a href="#证明-收敛性（固定步长）" class="headerlink" title="证明 收敛性（固定步长）"></a>证明 收敛性（固定步长）</h3><p>由于 $\grad^2f(\bm w)= 2X^TX$ 半正定，所以 $f(w)$ 是凸函数，因此</p>
+f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h3 id="证明-收敛性（固定学习率）"><a href="#证明-收敛性（固定学习率）" class="headerlink" title="证明 收敛性（固定学习率）"></a>证明 收敛性（固定学习率）</h3><p>接下来证明梯度下降法在最小二乘问题上的收敛性，注意这个证明具有一般性（符合 L-smooth 条件的凸函数），所以会略显冗长。</p>
 <script type="math/tex; mode=display">
 \begin{align}
 f(\bm w_{i+1}) &\le f(\bm w_i) +\grad f(\bm w_i)^T(\bm w_{i+1}-\bm w)+\frac{L}{2}||\bm w_{i+1}-\bm w||^2 \\ \\
@@ -644,7 +646,7 @@ f(\bm w_{i+1}) &\le f(\bm w_i) +\grad f(\bm w_i)^T(\bm w_{i+1}-\bm w)+\frac{L}{2
 \end{align}</script><p>选择 $\eta L\le 1$ ，则 $1-\frac{L\eta}{2}\ge\frac{1}{2}$ ，所以得到：</p>
 <script type="math/tex; mode=display">
 f(\bm w_{i+1})\le f(\bm w_i) - \frac 1 2\eta||\grad f(\bm w_i)||^2</script><p>观察上面的公式，我们会发现 $f(\bm w)$ 每次迭代，都会让 $f(\bm w)$ 变得更小，朝着更好的方向去前进，也就是单调性。接下来我们继续证明收敛性。</p>
-<p>假设最优解 $f(\bm w^*)$ 为最优解，那么根据泰勒一阶展开：</p>
+<p>假设最优解 $f(\bm w^*)$ 为最优解，那么根据泰勒一阶展开，以及 $f(\bm w)$ 是一个凸函数：</p>
 <script type="math/tex; mode=display">
 f(\bm w_i)\le f(\bm w^*)+\grad f(\bm w_i)^T(\bm w_i-\bm w^*)</script><p>代入上式子，</p>
 <script type="math/tex; mode=display">
@@ -668,7 +670,7 @@ f(\bm w_{k}) - f(\bm w^*) &\le \frac{1}{2\eta}\left( ||\bm w_{k-1} -\bm w^*||^2-
 &\le \frac{1}{2\eta}||\bm w_0 -\bm w^*||^2 \\ \\
 \sum_{i=1}^k[f(\bm w_k) - f(\bm w^*)] &\le \sum_{i=1}^k[f(\bm w_i) - f(\bm w^*)] \le \frac{1}{2\eta}||\bm w_0 -\bm w^*||^2 \\ \\
 f(\bm w_k) &\le f(\bm w^*)+\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2
-\end{align}</script><p>证明完毕。随着 $k$ 越来越大，误差 $\epsilon=\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2$ 也越来越小，从上面得到的公式我们可以知道 梯度下降法的收敛步数为 $O(\frac{1}{\epsilon})$ ，为次线性收敛 。</p>
+\end{align}</script><p>证明完毕。随着 $k$ 越来越大，误差 $\epsilon=\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2$ 也越来越小，从上面得到的公式我们可以知道在一个符合 L-smooth 的凸函数上，梯度下降法的收敛步数为 $O(\frac{1}{\epsilon})$ ，是次线性收敛 ；若在证明中加入强凸的属性，则梯度下降法的收敛步数为 $O(log(\frac{1}{\epsilon}))$ ，是线性收敛。</p>
 <h2 id="牛顿法"><a href="#牛顿法" class="headerlink" title="牛顿法"></a>牛顿法</h2><p>由泰勒展开式得，</p>
 <script type="math/tex; mode=display">
 f(\bm w_i +\bm d) = f(\bm w_i)+\grad f(\bm w_i)^T\bm d + \frac{1}{2}\bm d^T\grad^2f(\bm w_i)\bm d + o(||\bm d||^2)</script><p>舍弃高阶项，并对 $\bm d$ 求导，</p>
@@ -710,6 +712,69 @@ H(\bm w) = \grad^2f(\bm w) = 2X^TX=C</script><p>在迭代方程两边同时减�
       <tags>
         <tag>math</tag>
         <tag>optimal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>统计学习: AdaBoost</title>
+    <url>/2021/11/18/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0-AdaBoost/</url>
+    <content><![CDATA[<p>对于一个二分类问题数据集</p>
+<script type="math/tex; mode=display">
+T = \lbrace (x_1,y_1),...,(x_N,y_N) \rbrace</script><p>其中 $x_i\in \mathcal X \subseteq \mathbb R^m, y_i\in\mathcal Y=\lbrace-1,+1\rbrace$ 。AdaBoost 使用以下算法，从训练数据中学习一系列弱分类器，并将这些弱分类器线性组合称为一个强分类器。</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>输入：训练集数据；弱学习器 $G_m$ </p>
+<p>输出：一个强学习器 $G$</p>
+<h4 id="1-初始化训练数据的权重向量"><a href="#1-初始化训练数据的权重向量" class="headerlink" title="1. 初始化训练数据的权重向量"></a>1. 初始化训练数据的权重向量</h4><script type="math/tex; mode=display">
+D_1=(\overbrace{\frac{1}{N},...,\frac{1}{N}}^N)</script><h4 id="2-for-m-1-…-M"><a href="#2-for-m-1-…-M" class="headerlink" title="2. for m=1,…,M"></a>2. for m=1,…,M</h4><p>a）使用具有权重 $D_m$ 的数据集训练弱学习器，得到</p>
+<script type="math/tex; mode=display">
+G_m(x):\mathcal X\to \lbrace-1,+1\rbrace</script><p>b）计算 $G_m(x)$ 在训练集上的分类误差率，</p>
+<script type="math/tex; mode=display">
+e_m=\sum_{n=1}^N w_{mn}I(G_m(x_n)\neq y_n)</script><p>c）更新权重向量，</p>
+<script type="math/tex; mode=display">
+w_{m+1,n} = \frac{w_{mn}}{Z_m} \exp(-\alpha_my_n G_m(x_n)) \\ \\
+Z_m = \sum_{n=1}^N w_{mn}\exp(-\alpha_my_n G_m(x_n)) \\ \\
+\alpha_m = \frac 1 2 \ln \frac{1-e_m}{e_m}</script><p>其中 $\alpha_m$ 是最重要的参数，它不但表示在最终分类器中，每一个弱分类器所占的比重，也表示每个弱分类器对权重更新的程度。</p>
+<h4 id="3-构建最终学习器"><a href="#3-构建最终学习器" class="headerlink" title="3. 构建最终学习器"></a>3. 构建最终学习器</h4><script type="math/tex; mode=display">
+G(x)=sign(\sum_{m=1}^M\alpha_mG_m(x))</script><h2 id="误差上界"><a href="#误差上界" class="headerlink" title="误差上界"></a>误差上界</h2><script type="math/tex; mode=display">
+e(T) = \frac 1 N \sum_{n=1}^N I(G(x_n)\neq y_n) \le \prod_{m=1}^M Z_m</script><p>证明：</p>
+<p>首先易得，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+e(T) &= \frac 1 N \sum_{n=1}^N I(G(x_n)\neq y_n) \\ \\ 
+&\le \frac 1 N \sum_{n=1}^N \exp\left[-y_n\sum_{m=1}^M\alpha_mG_m(x_n)\right] \\ \\
+& = \sum_{n=1}^N w_{1n}\prod_{m=1}^M \exp
+\end{align}</script><p>由 ${Z<em>m}w</em>{m+1,n} = w_{mn} \exp(-\alpha_my_n G_m(x_n))$ ，继续推导，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+e(T) 
+&\le \frac 1 N \sum_{n=1}^N \exp\left[-y_n\sum_{m=1}^M\alpha_mG_m(x_n)\right] \\ \\
+& = \sum_{n=1}^N w_{1n}\prod_{m=1}^M \exp(-\alpha_my_nG_m(x_n)) \\ \\
+& = \sum_{n=1}^N w_{1n}\exp(-\alpha_1y_nG_1(x_n)) \prod_{m=2}^M \exp(-\alpha_my_nG_m(x_n)) \\ \\
+& = \sum_{n=1}^N Z_1w_{2n} \prod_{m=2}^M \exp(-\alpha_my_nG_m(x_n)) \\ \\
+& = Z_1\sum_{n=1}^N w_{2n}\exp(-\alpha_2y_nG_2(x_n)) \prod_{m=3}^M \exp(-\alpha_my_nG_m(x_n)) \\ \\
+& = \ \cdots \\ \\
+& = \prod_{m=1}^M Z_m
+\end{align}</script><h2 id="alpha-m-的选择"><a href="#alpha-m-的选择" class="headerlink" title="$\alpha_m$ 的选择"></a>$\alpha_m$ 的选择</h2><p>我们现在已经知道了误差上界为 $\prod_{m=1}^M Z_m$ ，因此应该寻找 $\alpha_m$ 使得 $Z_m$ 最小，</p>
+<script type="math/tex; mode=display">
+\def\part{\partial}
+\begin{align}
+\frac{\part Z_m}{\part \alpha_m}
+&= \frac{\part \sum_{n=1}^N w_{mn}\exp(-\alpha_my_n G_m(x_n))}{\part \alpha_m} \\ \\
+&= -\sum_{n=1}^Nw_{mn}y_n G_m(x_n)\exp(-\alpha_my_n G_m(x_n)) \\ \\
+& = -\exp(-\alpha_m)\sum_{y_i=G_m(x_i)}w_{mn}+\exp(\alpha_m)\sum_{y_i\neq G_m(x_i)}w_{mn} \\ \\
+& = -\exp(-\alpha_m)(1-e_m)+\exp(\alpha_m)e_m = 0 \\ \\
+&\ \ \Rightarrow \alpha_m=\frac 1 2 \ln(\frac{1-e_m}{e_m})
+\end{align}</script><p> 确定完 $\alpha_m$ 之后，我们可以进一步界定误差上界，</p>
+<script type="math/tex; mode=display">
+\begin{align}
+Z_m &= \exp(-\alpha_m) \sum_{y_i=G_m(x_i)} w_{mn} + \exp(\alpha_m) \sum_{y_i\neq G_m(x_i)} w_{mn} \\ \\
+&= (1-e_m)\sqrt{\frac{e_m}{1-e_m}}+e_m\sqrt{\frac{1-e_m}{e_m}} \\ \\
+&=2\sqrt{(1-e_m)e_m} \le 1
+\end{align}</script><p>因此，只要保证每个弱分类器只要比随机猜测略好（$e_m&lt;0.5$），就能保证最终的强分类器的误差上界被不断减小。但这个减小的程度是有限的，随着无法找到不同的弱分类器，就无法再继续了。</p>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>math</tag>
       </tags>
   </entry>
 </search>
