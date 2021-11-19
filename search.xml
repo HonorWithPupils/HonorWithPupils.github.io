@@ -630,11 +630,11 @@ f(x)-f(y)=g(1)-g(0) =\int_0^1\grad f(y+t(x-y))^T(x-y)dt</script><p>将 上式代
 \begin{align}
 \text{left} &= |\int_0^1\grad f(y+t(x-y))^T(x-y)dt-\grad f(y)^T(x-y)| \\ \\
 & = |\int_0^1[\grad f(y+t(x-y))^T(x-y) - \grad f(y)^T(x-y)]dt| \\ \\
-& \le \int_0^1|\grad f(y+t(x-y))-\grad f(y)]^T(x-y)|dt \\ \\
+& \le \int_0^1|[\grad f(y+t(x-y))-\grad f(y)]^T(x-y)|dt \\ \\
 & \le \int_0^1 \sqrt{||\grad f(y+t(x-y))-\grad f(y)||^2||x-y||^2} dt \\ \\
 & \le \int_0^1 \sqrt{L||t(x-y)||^2||x-y||^2} dt \\ \\
 & =L||x-y||^2\int_0^1tdt=\frac{L}{2}||x-y||^2
-\end{align}</script><p>其中第3行使用了和的绝对值小于等于绝对值的和，第4行使用了西施瓦茨不等式 $a^Tb\le\sqrt{||a||^2||b||^2}$ ，第5行代入了 L-smooth 条件。</p>
+\end{align}</script><p>其中第3行使用了和的绝对值小于等于绝对值的和，第4行使用了柯西施瓦茨不等式 $a^Tb\le\sqrt{||a||^2||b||^2}$ ，第5行代入了 L-smooth 条件。</p>
 <p>删去绝对值，可得到，</p>
 <script type="math/tex; mode=display">
 f(x)\le f(y)+\grad f(y)^T(x-y)+\frac{L}{2}||x-y||^2</script><h3 id="证明-收敛性（固定学习率）"><a href="#证明-收敛性（固定学习率）" class="headerlink" title="证明 收敛性（固定学习率）"></a>证明 收敛性（固定学习率）</h3><p>接下来证明梯度下降法在最小二乘问题上的收敛性，注意这个证明具有一般性（符合 L-smooth 条件的凸函数），所以会略显冗长。</p>
@@ -675,7 +675,7 @@ f(\bm w_k) &\le f(\bm w^*)+\frac{1}{2\eta k}||\bm w_0 -\bm w^*||^2
 <script type="math/tex; mode=display">
 f(\bm w_i +\bm d) = f(\bm w_i)+\grad f(\bm w_i)^T\bm d + \frac{1}{2}\bm d^T\grad^2f(\bm w_i)\bm d + o(||\bm d||^2)</script><p>舍弃高阶项，并对 $\bm d$ 求导，</p>
 <script type="math/tex; mode=display">
-\grad_{\bm d}f(\bm w_i +\bm d) =\grad f(\bm w_i)+\grad^2f(\bm w_i)=0 \\ \\
+\grad_{\bm d}f(\bm w_i +\bm d) =\grad f(\bm w_i)+\grad^2f(\bm w_i)\bm d=0 \\ \\
 \Rightarrow \bm d = -\grad^2f(\bm w_i)^{-1}\grad f(\bm w_i)</script><p>因此迭代方程为，</p>
 <script type="math/tex; mode=display">
 \bm w_{i+1} = \bm w_i-\grad^2f(\bm w_i)^{-1}\grad f(\bm w_i)</script><h3 id="证明-收敛性"><a href="#证明-收敛性" class="headerlink" title="证明 收敛性"></a>证明 收敛性</h3><p>首先对于最小二乘问题，</p>
@@ -740,8 +740,10 @@ e(T) = \frac 1 N \sum_{n=1}^N I(G(x_n)\neq y_n) \le \prod_{m=1}^M Z_m</script><p
 \begin{align}
 e(T) &= \frac 1 N \sum_{n=1}^N I(G(x_n)\neq y_n) \\ \\ 
 &\le \frac 1 N \sum_{n=1}^N \exp\left[-y_n\sum_{m=1}^M\alpha_mG_m(x_n)\right] \\ \\
-& = \sum_{n=1}^N w_{1n}\prod_{m=1}^M \exp
-\end{align}</script><p>由 ${Z<em>m}w</em>{m+1,n} = w_{mn} \exp(-\alpha_my_n G_m(x_n))$ ，继续推导，</p>
+& = \sum_{n=1}^N w_{1n}\prod_{m=1}^M \exp\left(-y_n\alpha_mG_m(x_n)\right)
+\end{align}</script><p>由权重更新公式得到，</p>
+<script type="math/tex; mode=display">
+Z_m w_{m+1,n} = w_{mn} \exp(-\alpha_m y_n G_m(x_n))</script><p> 继续推导，</p>
 <script type="math/tex; mode=display">
 \begin{align}
 e(T) 

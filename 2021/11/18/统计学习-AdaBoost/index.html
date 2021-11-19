@@ -77,8 +77,10 @@ e(T) = \frac 1 N \sum_{n=1}^N I(G(x_n)\neq y_n) \le \prod_{m=1}^M Z_m</script><p
 \begin{align}
 e(T) &= \frac 1 N \sum_{n=1}^N I(G(x_n)\neq y_n) \\ \\ 
 &\le \frac 1 N \sum_{n=1}^N \exp\left[-y_n\sum_{m=1}^M\alpha_mG_m(x_n)\right] \\ \\
-& = \sum_{n=1}^N w_{1n}\prod_{m=1}^M \exp
-\end{align}</script><p>由 ${Z<em>m}w</em>{m+1,n} = w_{mn} \exp(-\alpha_my_n G_m(x_n))$ ，继续推导，</p>
+& = \sum_{n=1}^N w_{1n}\prod_{m=1}^M \exp\left(-y_n\alpha_mG_m(x_n)\right)
+\end{align}</script><p>由权重更新公式得到，</p>
+<script type="math/tex; mode=display">
+Z_m w_{m+1,n} = w_{mn} \exp(-\alpha_m y_n G_m(x_n))</script><p> 继续推导，</p>
 <script type="math/tex; mode=display">
 \begin{align}
 e(T) 
