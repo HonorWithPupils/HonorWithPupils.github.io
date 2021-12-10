@@ -145,8 +145,11 @@ H(\bm w) = \grad^2f(\bm w) = 2X^TX=C</script><p>在迭代方程两边同时减�
 \begin{align}
 \bm w_{i+1} - \bm w^* &= \bm w_i - \bm w^* -H^{-1}(\bm w_i)\grad f(\bm w_i) \\ \\
 & = \bm w_i - \bm w^* -H^{-1}(\bm w_i)[\grad f(\bm w_i)-\grad f(\bm w^*)]\ \ (\grad f(\bm w^*)=\bm 0)
-\end{align}</script><p>构造插值函数 $g(t)=\grad f(\bm w_i+t(\bm w^<em>-\bm w_i))$，则 $g’(t)=H(\bm w_i+t(\bm w^</em>-\bm w_i))(\bm w^*-\bm w_i)$</p>
+\end{align}</script><p>构造插值函数 </p>
 <script type="math/tex; mode=display">
+g(t)=\grad f(\bm w_i+t(\bm w^*-\bm w_i))</script><p>则</p>
+<script type="math/tex; mode=display">
+g'(t)=H(\bm w_i+t(\bm w^*-\bm w_i))(\bm w^*-\bm w_i)</script><script type="math/tex; mode=display">
 \begin{align}
 \grad f(\bm w^*)-\grad f(\bm w_i) &= g(1)-g(0) \\ \\
 &= \int_0^1g'(t)dt \\ \\

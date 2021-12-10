@@ -506,92 +506,6 @@ a & 0 \\
       </tags>
   </entry>
   <entry>
-    <title>矩阵论4：子空间、值域与核、不变子空间</title>
-    <url>/2021/11/10/%E7%9F%A9%E9%98%B5%E8%AE%BA4%EF%BC%9A%E5%AD%90%E7%A9%BA%E9%97%B4%E3%80%81%E5%80%BC%E5%9F%9F%E4%B8%8E%E6%A0%B8%E3%80%81%E4%B8%8D%E5%8F%98%E5%AD%90%E7%A9%BA%E9%97%B4/</url>
-    <content><![CDATA[<p>本章介绍一些之前几篇文章为了逻辑顺畅暂且搁置的知识。</p>
-<h2 id="子空间"><a href="#子空间" class="headerlink" title="子空间"></a>子空间</h2><p>在介绍本章的主角线性空间之前，我们要先铺垫一下子空间的概念。</p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义：设有线性空间 $\def\bm{\boldsymbol} V_1$ 及 $V_2$ 。如果 $V_1\subseteq V_2$，则称  $V_1$ 是 $V_2$ 的子空间。</p>
-<p>例：$V$ 和 ${\bm\theta}$ 是 $V$ 的子空间，称它们为平凡子空间，其余的为非平凡子空间。</p>
-<p>例：集合 $\lbrace T=\boldsymbol x|\boldsymbol x=[x_1,x_2,0]^T,\ x_1,x_2\in R \rbrace$ 是一个向量空间，它是 $R^3$ 中的向量 $[x_1,x_2,x_3]^T$ 在 $x_1x_2$ 平面上的投影空间，是 $R^3$ 的一个子空间。</p>
-<p>例：$R^3$ 不是 $R^4$ 的子空间。</p>
-<h4 id="定理：子空间判别法"><a href="#定理：子空间判别法" class="headerlink" title="定理：子空间判别法"></a>定理：子空间判别法</h4><p>数域 $F$ 上的向量空间 $V$ 的非空子集 $U$ 是向量空间（ $V$ 的子空间 ）的充要条件是 $U$ 对 $V$ 中规定的加法和数乘都封闭。</p>
-<p>⭐ 这意味着子空间只要对原空间的两个运算封闭即可，</p>
-<h4 id="交与和"><a href="#交与和" class="headerlink" title="交与和"></a>交与和</h4><p>定理（交集）：设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，则它们的交集 $V_1\cap V_2$ 也是 $V$ 的子空间。</p>
-<p>定理（和）：设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，定义 $V_1,V_2$ 的和如下，</p>
-<script type="math/tex; mode=display">
-\def\bm{\boldsymbol} \def\span{\text{span}}
-\begin{align}
-V_1+V_2 &\overset{\underset{\mathrm{def}}{}}{=} \{ \bm\alpha+\bm\beta|\bm\alpha\in V_1,\bm\beta \in V_2 \} 
-\\ \\
-&= \span(\bm\alpha_1,\dots,\bm\alpha_s,\bm\beta_1,\dots,\bm\beta_t)
-\\ \\
-\text{where   } &V_1 = \span(\bm\alpha_1,\dots,\bm\alpha_s)
-\\ \\
-&V_2 = \span(\bm\beta_1,\dots,\bm\beta_t)
-\end{align}</script><p>其也是 $V$ 的子空间。</p>
-<p>⭐问题：为何不研究子空间的并集</p>
-<p>反例：由三维空间的 $xy$ 平面和 $yz$ 平面给组成的并集，并不对加法封闭。</p>
-<p>本质：交与和 是对子空间的基进行交和并运算（用线性相关替代重复的意义下），而不是对于集合进行交和并运算，恰巧集合的交和基的交相同，而集合的并和基的并不相同</p>
-<h4 id="定理：维数公式"><a href="#定理：维数公式" class="headerlink" title="定理：维数公式"></a>定理：维数公式</h4><p>设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个有限维子空间，则它们的 交 和 和 都是有限维的，并且</p>
-<script type="math/tex; mode=display">
-\def\dim{\text{dim}}
-\dim(V_1+V_2) = \dim(V_1)+\dim(V_2)-dim(V_1\cap V_2)</script><h4 id="直和（direct-sum）"><a href="#直和（direct-sum）" class="headerlink" title="直和（direct sum）"></a>直和（direct sum）</h4><p>设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，如果</p>
-<script type="math/tex; mode=display">
-V_1\cap V_2 = \{ \theta \}</script><p>则称 $V_1+V_2$ 为 $V_1,V_2$ 的直和，记作 $V_1\oplus V_2$ 。</p>
-<h4 id="定理：直和分解"><a href="#定理：直和分解" class="headerlink" title="定理：直和分解"></a>定理：直和分解</h4><p>设 $V_1$ 是数域 $F$ 上的线性空间 $V$ 的一个子空间，则一定存在 $V$ 的另一个子空间 $V_2$（仅当 $V_1 = {\theta }$ 时唯一，为 $V$），使得空间 $V$ 具有直和分解，</p>
-<script type="math/tex; mode=display">
-V = V_1 \oplus V_2</script><p>并称 $V_1,V_2$ 是一对互补的子空间，或者 $V_1$ 是 $V_2$ 的补子空间。</p>
-<p>⭐ 直和分解不唯一</p>
-<p>⭐ 三个子空间两两直和，其不一定直和 $ \Leftrightarrow $ 三个向量两两线性无关，其不一定线性无关</p>
-<hr>
-<h2 id="值域与核"><a href="#值域与核" class="headerlink" title="值域与核"></a>值域与核</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>若有线性映射 $T:V_1\mapsto V_2$，</p>
-<p>线性映射 $T$ 的值域：</p>
-<script type="math/tex; mode=display">
-\def\Im{\text{Im}} 
-\def\Ker{\text{Ker}}
-\def\bm{\boldsymbol}
-\Im(T)=R(T)=\{T(\bm \alpha)|\forall \bm \alpha \in V_1\}</script><p>线性映射 $T$ 的核：</p>
-<script type="math/tex; mode=display">
-\Ker(T)=N(T)=\{ \bm \alpha\in V_1|T(\bm \alpha)=\bm \theta_2 \}</script><p>⭐ 注意  $\Im(T)$ 是 $V_2$ 的子空间；$\Ker(T)$ 是 $V_1$ 的子空间</p>
-<p>⭐ $dim(\Im(T))$ 是经过变换最多保留的维度；$dim(\Ker(T))$ 是经过变换的舍弃的维度，所以</p>
-<script type="math/tex; mode=display">
-dim(\Im(T))+dim(\Ker(T)) = dim(V_1)</script><p>⭐ $dim(V_2)&gt;dim(\Im(T))$ 即可，可以任意大</p>
-<p>当 $V_1=V_2$ ，$T$ 为线性变换时， $\Im(T)$ 的维数即线性变换 $T$ 的秩； $\Ker(T)$ 的维数即线性变换 $T$ 的零度。</p>
-<script type="math/tex; mode=display">
-rank(T)+nullity(T) = n</script><p>但一般情况下，</p>
-<script type="math/tex; mode=display">
-\Im(T)+\Ker(T)\ne V</script><hr>
-<h2 id="不变子空间"><a href="#不变子空间" class="headerlink" title="不变子空间"></a>不变子空间</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><p>设 $T$ 是数域 $F$ 上的线性空间 $V$ 上的线性变换，$W$ 是 $V$ 的子空间。如果对任意向量 $\bm \alpha\in W$ 都有 $T(\bm \alpha)\in W$ ，则称 $W$ 是 $T$ 的不变子空间。</p>
-<p>例1： ${ \bm \theta } $ 是任意线性空间任意线性变换的不变子空间，因为 $T(\bm\theta)=\bm\theta$ 。</p>
-<p>例2： $\Im(T)$ 是 $T$ 的不变子空间，由值域定义显然。</p>
-<p>例3： $\Ker(T)$ 是 $T$ 的不变子空间，因为对任意向量 $\bm \alpha\in \Ker(T)$ 都有 $T(\bm \alpha)=\bm \theta$，且 $\bm\theta\in \Ker(T)$ 。</p>
-<p>例4： $T$ 的特征子空间</p>
-<script type="math/tex; mode=display">
-V_\lambda=\{ \bm x|T(\bm x)=\lambda \bm x, \bm x \in V \}</script><p>也是 $T$ 的不变子空间。</p>
-<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><h5 id="定理-1："><a href="#定理-1：" class="headerlink" title="定理 1："></a>定理 1：</h5><p>线性变换 $T$ 的不变空间的交和和仍然是 $T$ 的不变子空间。</p>
-<h5 id="定理-2："><a href="#定理-2：" class="headerlink" title="定理 2："></a>定理 2：</h5><p>线性空间 $V$ 上的线性变换 $T$ 有非平凡的不变子空间的充要条件是 $T$ 在 $V$ 的一组基下的矩阵表示为（相似于）块上三角矩阵，即形如，</p>
-<script type="math/tex; mode=display">
-\pmatrix{A_{11}&A_{12}\\ O&A_{22}}</script><p>对应的不变子空间形如 $(x_1,\dots,x_m,0,\dots,0)$ 。</p>
-<p>其中 $m$ 为 $dim(A_{11})$。</p>
-<h5 id="定理-3："><a href="#定理-3：" class="headerlink" title="定理 3："></a>定理 3：</h5><p>线性空间 $V$ 上的线性变换 $T$ 在 $V$ 的一组基下的矩阵表达式为块对角矩阵 $diag\lbrace A_1,A_2,…,A_s\rbrace$ 的充要条件是 $V$ 可以分解为 $T$ 的不变子空间的直和</p>
-<script type="math/tex; mode=display">
-V=W_1\oplus W_2\oplus ...\oplus W_s</script><p>若 $T$ 可对角化，本定理的块对角矩阵即可变为对角矩阵，其中</p>
-<script type="math/tex; mode=display">
-A_i=\lambda_i \\
-W_i = V_{\lambda_i}=\lbrace \bm x|T(\bm x)=\lambda_i \bm x, \bm x \in V \rbrace</script><p>这个定理既可以求不变子空间，也为下一节中的约当型做出了铺垫。</p>
-<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><ol>
-<li>子空间的判别；</li>
-<li>求不变子空间。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>MatrixTheory</category>
-      </categories>
-      <tags>
-        <tag>math</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>统计学习: 最小二乘法</title>
     <url>/2021/11/17/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0-%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/</url>
     <content><![CDATA[<p>最小二乘法的基本原理如下，针对线性回归模型 $\def\bm{\boldsymbol} y=\bm w^T\bm x$，寻找参数 $w$ 使得残差平方和最小，</p>
@@ -685,8 +599,11 @@ H(\bm w) = \grad^2f(\bm w) = 2X^TX=C</script><p>在迭代方程两边同时减�
 \begin{align}
 \bm w_{i+1} - \bm w^* &= \bm w_i - \bm w^* -H^{-1}(\bm w_i)\grad f(\bm w_i) \\ \\
 & = \bm w_i - \bm w^* -H^{-1}(\bm w_i)[\grad f(\bm w_i)-\grad f(\bm w^*)]\ \ (\grad f(\bm w^*)=\bm 0)
-\end{align}</script><p>构造插值函数 $g(t)=\grad f(\bm w_i+t(\bm w^<em>-\bm w_i))$，则 $g’(t)=H(\bm w_i+t(\bm w^</em>-\bm w_i))(\bm w^*-\bm w_i)$</p>
+\end{align}</script><p>构造插值函数 </p>
 <script type="math/tex; mode=display">
+g(t)=\grad f(\bm w_i+t(\bm w^*-\bm w_i))</script><p>则</p>
+<script type="math/tex; mode=display">
+g'(t)=H(\bm w_i+t(\bm w^*-\bm w_i))(\bm w^*-\bm w_i)</script><script type="math/tex; mode=display">
 \begin{align}
 \grad f(\bm w^*)-\grad f(\bm w_i) &= g(1)-g(0) \\ \\
 &= \int_0^1g'(t)dt \\ \\
@@ -774,6 +691,187 @@ Z_m &= \exp(-\alpha_m) \sum_{y_i=G_m(x_i)} w_{mn} + \exp(\alpha_m) \sum_{y_i\neq
 ]]></content>
       <categories>
         <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>矩阵论4：子空间、值域与核、不变子空间</title>
+    <url>/2021/11/10/%E7%9F%A9%E9%98%B5%E8%AE%BA4%EF%BC%9A%E5%AD%90%E7%A9%BA%E9%97%B4%E3%80%81%E5%80%BC%E5%9F%9F%E4%B8%8E%E6%A0%B8%E3%80%81%E4%B8%8D%E5%8F%98%E5%AD%90%E7%A9%BA%E9%97%B4%20-%20%E5%89%AF%E6%9C%AC/</url>
+    <content><![CDATA[<p>本章介绍一些之前几篇文章为了逻辑顺畅暂且搁置的知识。</p>
+<h2 id="子空间"><a href="#子空间" class="headerlink" title="子空间"></a>子空间</h2><p>在介绍本章的主角线性空间之前，我们要先铺垫一下子空间的概念。</p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>定义：设有线性空间 $\def\bm{\boldsymbol} V_1$ 及 $V_2$ 。如果 $V_1\subseteq V_2$，则称  $V_1$ 是 $V_2$ 的子空间。</p>
+<p>例：$V$ 和 ${\bm\theta}$ 是 $V$ 的子空间，称它们为平凡子空间，其余的为非平凡子空间。</p>
+<p>例：集合 $\lbrace T=\boldsymbol x|\boldsymbol x=[x_1,x_2,0]^T,\ x_1,x_2\in R \rbrace$ 是一个向量空间，它是 $R^3$ 中的向量 $[x_1,x_2,x_3]^T$ 在 $x_1x_2$ 平面上的投影空间，是 $R^3$ 的一个子空间。</p>
+<p>例：$R^3$ 不是 $R^4$ 的子空间。</p>
+<h4 id="定理：子空间判别法"><a href="#定理：子空间判别法" class="headerlink" title="定理：子空间判别法"></a>定理：子空间判别法</h4><p>数域 $F$ 上的向量空间 $V$ 的非空子集 $U$ 是向量空间（ $V$ 的子空间 ）的充要条件是 $U$ 对 $V$ 中规定的加法和数乘都封闭。</p>
+<p>⭐ 这意味着子空间只要对原空间的两个运算封闭即可，</p>
+<h4 id="交与和"><a href="#交与和" class="headerlink" title="交与和"></a>交与和</h4><p>定理（交集）：设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，则它们的交集 $V_1\cap V_2$ 也是 $V$ 的子空间。</p>
+<p>定理（和）：设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，定义 $V_1,V_2$ 的和如下，</p>
+<script type="math/tex; mode=display">
+\def\bm{\boldsymbol} \def\span{\text{span}}
+\begin{align}
+V_1+V_2 &\overset{\underset{\mathrm{def}}{}}{=} \{ \bm\alpha+\bm\beta|\bm\alpha\in V_1,\bm\beta \in V_2 \} 
+\\ \\
+&= \span(\bm\alpha_1,\dots,\bm\alpha_s,\bm\beta_1,\dots,\bm\beta_t)
+\\ \\
+\text{where   } &V_1 = \span(\bm\alpha_1,\dots,\bm\alpha_s)
+\\ \\
+&V_2 = \span(\bm\beta_1,\dots,\bm\beta_t)
+\end{align}</script><p>其也是 $V$ 的子空间。</p>
+<p>⭐问题：为何不研究子空间的并集</p>
+<p>反例：由三维空间的 $xy$ 平面和 $yz$ 平面给组成的并集，并不对加法封闭。</p>
+<p>本质：交与和 是对子空间的基进行交和并运算（用线性相关替代重复的意义下），而不是对于集合进行交和并运算，恰巧集合的交和基的交相同，而集合的并和基的并不相同</p>
+<h4 id="定理：维数公式"><a href="#定理：维数公式" class="headerlink" title="定理：维数公式"></a>定理：维数公式</h4><p>设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个有限维子空间，则它们的 交 和 和 都是有限维的，并且</p>
+<script type="math/tex; mode=display">
+\def\dim{\text{dim}}
+\dim(V_1+V_2) = \dim(V_1)+\dim(V_2)-dim(V_1\cap V_2)</script><h4 id="直和（direct-sum）"><a href="#直和（direct-sum）" class="headerlink" title="直和（direct sum）"></a>直和（direct sum）</h4><p>设 $V_1,V_2$ 是数域 $F$ 上的向量空间 $V$ 的两个子空间，如果</p>
+<script type="math/tex; mode=display">
+V_1\cap V_2 = \{ \theta \}</script><p>则称 $V_1+V_2$ 为 $V_1,V_2$ 的直和，记作 $V_1\oplus V_2$ 。</p>
+<h4 id="定理：直和分解"><a href="#定理：直和分解" class="headerlink" title="定理：直和分解"></a>定理：直和分解</h4><p>设 $V_1$ 是数域 $F$ 上的线性空间 $V$ 的一个子空间，则一定存在 $V$ 的另一个子空间 $V_2$（仅当 $V_1 = {\theta }$ 时唯一，为 $V$），使得空间 $V$ 具有直和分解，</p>
+<script type="math/tex; mode=display">
+V = V_1 \oplus V_2</script><p>并称 $V_1,V_2$ 是一对互补的子空间，或者 $V_1$ 是 $V_2$ 的补子空间。</p>
+<p>⭐ 直和分解不唯一</p>
+<p>⭐ 三个子空间两两直和，其不一定直和 $ \Leftrightarrow $ 三个向量两两线性无关，其不一定线性无关</p>
+<hr>
+<h2 id="值域与核"><a href="#值域与核" class="headerlink" title="值域与核"></a>值域与核</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>若有线性映射 $T:V_1\mapsto V_2$，</p>
+<p>线性映射 $T$ 的值域：</p>
+<script type="math/tex; mode=display">
+\def\Im{\text{Im}} 
+\def\Ker{\text{Ker}}
+\def\bm{\boldsymbol}
+\Im(T)=R(T)=\{T(\bm \alpha)|\forall \bm \alpha \in V_1\}</script><p>线性映射 $T$ 的核：</p>
+<script type="math/tex; mode=display">
+\Ker(T)=N(T)=\{ \bm \alpha\in V_1|T(\bm \alpha)=\bm \theta_2 \}</script><p>⭐ 注意  $\Im(T)$ 是 $V_2$ 的子空间；$\Ker(T)$ 是 $V_1$ 的子空间</p>
+<p>⭐ $dim(\Im(T))$ 是经过变换最多保留的维度；$dim(\Ker(T))$ 是经过变换的舍弃的维度，所以</p>
+<script type="math/tex; mode=display">
+dim(\Im(T))+dim(\Ker(T)) = dim(V_1)</script><p>⭐ $dim(V_2)&gt;dim(\Im(T))$ 即可，可以任意大</p>
+<p>当 $V_1=V_2$ ，$T$ 为线性变换时， $\Im(T)$ 的维数即线性变换 $T$ 的秩； $\Ker(T)$ 的维数即线性变换 $T$ 的零度。</p>
+<script type="math/tex; mode=display">
+rank(T)+nullity(T) = n</script><p>但一般情况下，</p>
+<script type="math/tex; mode=display">
+\Im(T)+\Ker(T)\ne V</script><hr>
+<h2 id="不变子空间"><a href="#不变子空间" class="headerlink" title="不变子空间"></a>不变子空间</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><p>设 $T$ 是数域 $F$ 上的线性空间 $V$ 上的线性变换，$W$ 是 $V$ 的子空间。如果对任意向量 $\bm \alpha\in W$ 都有 $T(\bm \alpha)\in W$ ，则称 $W$ 是 $T$ 的不变子空间。并且称 $T|_W:W\to W$ 为 $T$ 在 $W$ 上的限制。</p>
+<p>例1： ${ \bm \theta } $ 是任意线性空间任意线性变换的不变子空间，因为 $T(\bm\theta)=\bm\theta$ 。</p>
+<p>例2： $\Im(T)$ 是 $T$ 的不变子空间，由值域定义显然。</p>
+<p>例3： $\Ker(T)$ 是 $T$ 的不变子空间，因为对任意向量 $\bm \alpha\in \Ker(T)$ 都有 $T(\bm \alpha)=\bm \theta$，且 $\bm\theta\in \Ker(T)$ 。</p>
+<p>例4： $T$ 的特征子空间</p>
+<script type="math/tex; mode=display">
+V_\lambda=\{ \bm x|T(\bm x)=\lambda \bm x, \bm x \in V \}</script><p>也是 $T$ 的不变子空间。</p>
+<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><h5 id="定理-1："><a href="#定理-1：" class="headerlink" title="定理 1："></a>定理 1：</h5><p>线性变换 $T$ 的不变空间的交和和仍然是 $T$ 的不变子空间。</p>
+<h5 id="定理-2："><a href="#定理-2：" class="headerlink" title="定理 2："></a>定理 2：</h5><p>线性空间 $V$ 上的线性变换 $T$ 有非平凡的不变子空间的充要条件是 $T$ 在 $V$ 的一组基下的矩阵表示为（相似于）块上三角矩阵，即形如，</p>
+<script type="math/tex; mode=display">
+\pmatrix{A_{11}&A_{12}\\ O&A_{22}}</script><p>对应的不变子空间形如 $(x_1,\dots,x_m,0,\dots,0)$ 。</p>
+<p>其中 $m$ 为 $dim(A_{11})$。</p>
+<h5 id="定理-3："><a href="#定理-3：" class="headerlink" title="定理 3："></a>定理 3：</h5><p>线性空间 $V$ 上的线性变换 $T$ 在 $V$ 的一组基下的矩阵表达式为块对角矩阵 $diag\lbrace A_1,A_2,…,A_s\rbrace$ 的充要条件是 $V$ 可以分解为 $T$ 的不变子空间的直和</p>
+<script type="math/tex; mode=display">
+V=W_1\oplus W_2\oplus ...\oplus W_s</script><p>若 $T$ 可对角化，本定理的块对角矩阵即可变为对角矩阵，其中</p>
+<script type="math/tex; mode=display">
+A_i=\lambda_i \\
+W_i = V_{\lambda_i}=\lbrace \bm x|T(\bm x)=\lambda_i \bm x, \bm x \in V \rbrace</script><p>这个定理既可以求不变子空间，也为下一节中的约当型做出了铺垫。</p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><ol>
+<li>子空间的判别；</li>
+<li>求不变子空间。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>MatrixTheory</category>
+      </categories>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>矩阵论5：Jordan标准型</title>
+    <url>/2021/12/10/%E7%9F%A9%E9%98%B5%E8%AE%BA5%EF%BC%9AJordan%E6%A0%87%E5%87%86%E5%9E%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>Jordan 标准形理论，也即方阵在相似下的分类理论，可以说是线性代数的最深刻的地方。   </p>
+<p>—— 李炯生 《线性代数》</p>
+</blockquote>
+<p>由于一般矩阵未必与对角矩阵相似，因此我们“退而求其次“，寻找几乎对角的矩阵，这也就是 $Jordan$ 标准型。</p>
+<p><strong>定理</strong> 对于任意非零矩阵 $A$，存在可逆矩阵 $P$，使得 $P^{-1}AP=J$ ， $J$ 是 $A$ 的 $Jordan$ 标准型</p>
+<script type="math/tex; mode=display">
+J=\text{diag}(J_{e_1}(\lambda_1),...,J_{e_k}(\lambda_s))</script><p>$\lambda<em>i$ 为 $A$ 的特征值 ， $J</em>{e_j}(\lambda_i)$ 为 $Jordan$ 块，形如，</p>
+<script type="math/tex; mode=display">
+J_{e_j}(\lambda_i)=
+\pmatrix{
+\lambda_i & 1 & & \\
+ & \lambda_i & \ddots & \\
+ &  & \ddots  & 1 \\
+ &  & & \lambda_i \\
+}_{e_j\times e_j}</script><p>并且在不考虑对角块顺序的情况下，$J$ 是唯一的。</p>
+<h2 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h2><p>由于能力和时间有限，不给出 $Jordan$ 标准型定理的完整证明，仅介绍其中两个核心定理，即空间第一分解定理和空间第二分解定理，以便于更深层地理解 $Jordan$ 标准型原理。</p>
+<h3 id="空间第一分解定理"><a href="#空间第一分解定理" class="headerlink" title="空间第一分解定理"></a>空间第一分解定理</h3><p>设 $V$ 是 $n$ 维复线性空间，$A:V\to V$ 是线性变换，$\lambda$ 是其特征值，记</p>
+<script type="math/tex; mode=display">
+\def\Ker{\text{Ker}}
+\def\Im{\text{Im}}
+W^m_\lambda = \Ker(A-\lambda I)^m</script><p>由值域的定义 $(A-\lambda I)^m\alpha=0$ ，显然可得，</p>
+<script type="math/tex; mode=display">
+W^1_\lambda\subseteq W^2_\lambda\subseteq...\subseteq W^m_\lambda\subseteq...</script><p>由于 $V$ 是有限维空间，显然 $\dim W^m_\lambda$ 的维数无法无限增长，易于得到以下结论，存在 $k$ 使得</p>
+<script type="math/tex; mode=display">
+...\subset W_\lambda^{k-1}\subset W_\lambda^k=W_\lambda^{k+1}=...</script><p>同时易于证明 $W^k_\lambda$ 是不变子空间</p>
+<h4 id="根子空间定义"><a href="#根子空间定义" class="headerlink" title="根子空间定义"></a>根子空间定义</h4><p>设 $\lambda$ 是线性变换 $A:V\to V$ 的特征值，则所有 $N_m(\lambda)$ 的并集称为线性变换 $A$ 的属于特征值 $\lambda$ 的根子空间，记作 $N(\lambda)$。</p>
+<script type="math/tex; mode=display">
+W_\lambda :=\bigcup_{m=1}^\infty W^m_\lambda=W^k_\lambda</script><h4 id="空间第一分解定理-1"><a href="#空间第一分解定理-1" class="headerlink" title="空间第一分解定理"></a>空间第一分解定理</h4><p>设 $\lambda_1,…,\lambda_t$ 是线性变换 $A:V\to V$ 的全部不同特征值，它们的代数重数分别为 $e_1,…e_t$ ，即 $A$ 的特征多项式</p>
+<script type="math/tex; mode=display">
+\varphi(\lambda)=(\lambda-\lambda_1)^{e_1}...(\lambda-\lambda_t)^{e_t}</script><p>则有</p>
+<script type="math/tex; mode=display">
+V=W_{\lambda_1}\oplus...\oplus W_{\lambda_t}</script><p>证明略。</p>
+<h3 id="空间第二分解定理"><a href="#空间第二分解定理" class="headerlink" title="空间第二分解定理"></a>空间第二分解定理</h3><h4 id="循环子空间"><a href="#循环子空间" class="headerlink" title="循环子空间"></a>循环子空间</h4><p>设 $\alpha_0$ 是 $V$ 的非零向量， $V$ 中的线性变换 $A$ 的所有包含 $\alpha_0$ 的不变子空间的交称为由向量 $\alpha_0$ 生成的（相对线性变换 $A$ 的）循环子空间，记为 $C_0$ ，并且可以证明</p>
+<script type="math/tex; mode=display">
+C_0=\text{span}\lbrace \alpha_0,A\alpha_0,...,A^m\alpha_0,... \rbrace</script><h4 id="空间第二分解定理-1"><a href="#空间第二分解定理-1" class="headerlink" title="空间第二分解定理"></a>空间第二分解定理</h4><p>设 $W_{\lambda_j}$ 是线性变换 $A:V\to V$ 的属于特征值 $\lambda_j$ 的根子空间，则</p>
+<script type="math/tex; mode=display">
+W_{\lambda_j} = C_{j1}\oplus C_{j2} \oplus ...\oplus C_{jk_j}</script><p>其中 $C<em>{jl}$ 是相对线性变换 $(A-\lambda_jI)|</em>{W_{\lambda_j}}$ 的循环子空间，其中 $l=1,2,…,k_j$ ，$j=1,2,…,t$ 。</p>
+<p>证明略。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过空间第一、第二分解定律，可以将 $V$ 分解为根子空间（对映不同特征值），每个根子空间再分解为循环子空间（对映集合重数），对应到 $J$ 中的每个 $Jordan$ 块。</p>
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><script type="math/tex; mode=display">
+A=\begin{pmatrix}
+3&-4&0&2\\
+4&-5&-2&4\\
+0&0&3&-2\\
+0&0&2&-1
+\end{pmatrix}</script><p>求矩阵 $A$ 的 $Jordan$ 标准型。</p>
+<h3 id="Jordan-标准型"><a href="#Jordan-标准型" class="headerlink" title="Jordan 标准型"></a>Jordan 标准型</h3><h4 id="初等因子组法"><a href="#初等因子组法" class="headerlink" title="初等因子组法"></a>初等因子组法</h4><p>这里介绍另外一个方法，相比课堂上的方法，在高维情况下更加适用，而在低维情况下，$Jordan$ 标准型其实可以通过简单的求代数重数和几何重数得到。</p>
+<p>1） 将特征方阵 $\lambda I-A$ 化为 $Smith$ 标准形（第二、三初等变换仅限乘以常数和 $\lambda$ ），由此求得不变因子 $d_1(\lambda),…,d_n(\lambda)$ ；</p>
+<script type="math/tex; mode=display">
+\lambda I-A\sim\begin{pmatrix}
+1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&(\lambda-1)^2(\lambda+1)^2
+\end{pmatrix}</script><p>其中 $d_1(\lambda)=d_2(\lambda)=d_3(\lambda)=1;d_4(\lambda)=(\lambda-1)^2(\lambda+1)^2$ 。</p>
+<p>2） 把不变因子 $d_1(\lambda),…,d_n(\lambda)$ 分解为一次因子的乘积，求出初等因子组 $\lbrace (\lambda-\lambda_i)^{e_j} \rbrace$ ；</p>
+<script type="math/tex; mode=display">
+d_4(\lambda)=(\lambda-1)^2(\lambda+1)^2 \to (\lambda-1)^2,(\lambda+1)^2</script><p>3） 每个初等因子 $(\lambda-\lambda_i )^{e_j}$ 都对应着一个如下 $Jordan$ 块；</p>
+<script type="math/tex; mode=display">
+(\lambda-\lambda_i)^{e_j}\to J_{e_j}(\lambda_i)=
+\begin{pmatrix}
+\lambda_i&1&\cdots&0&0\\
+0&\lambda_i&\cdots&0&0\\
+\vdots&\vdots&\ddots&\vdots&\vdots\\
+0&0&\cdots&\lambda_i&1 \\
+0&0&\cdots&0&\lambda_i\\
+\end{pmatrix}_{e_j\times e_j}</script><script type="math/tex; mode=display">
+(\lambda-1)^2\to\begin{pmatrix}
+1&1\\
+0&1\\
+\end{pmatrix} \\
+(\lambda+1)^2\to\begin{pmatrix}
+-1&1\\
+0&-1\\
+\end{pmatrix}</script><p>4） 将  $Jordan$ 标准型即 $J=\text{diag}(J<em>{e_1}(\lambda_1),…,J</em>{e_k}(\lambda_s))$ 。</p>
+<script type="math/tex; mode=display">
+J=\begin{pmatrix}
+1&1&0&0\\
+0&1&0&0\\
+0&0&-1&1\\
+0&0&0&-1
+\end{pmatrix}</script><h3 id="过渡矩阵-P"><a href="#过渡矩阵-P" class="headerlink" title="过渡矩阵 P"></a>过渡矩阵 P</h3><p>对于 $Jordan$ 块 $J_{e_j}(\lambda_i)$ 其对映的过渡矩阵部分为 $((A-\lambda_iI)^{e_j-1}\beta,…,(A-\lambda_iI)\beta,\beta)$ ，其中 $\beta$ 符合以下条件，</p>
+<script type="math/tex; mode=display">
+(A-\lambda_iI)^{e_j}\beta=0 \text{ and } (A-\lambda_iI)^{e_j-1}\beta\neq0</script>]]></content>
+      <categories>
+        <category>MatrixTheory</category>
       </categories>
       <tags>
         <tag>math</tag>
