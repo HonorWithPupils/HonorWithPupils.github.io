@@ -792,7 +792,7 @@ W_i = V_{\lambda_i}=\lbrace \bm x|T(\bm x)=\lambda_i \bm x, \bm x \in V \rbrace<
 <p>由于一般矩阵未必与对角矩阵相似，因此我们“退而求其次“，寻找几乎对角的矩阵，这也就是 $Jordan$ 标准型。</p>
 <p><strong>定理</strong> 对于任意非零矩阵 $A$，存在可逆矩阵 $P$，使得 $P^{-1}AP=J$ ， $J$ 是 $A$ 的 $Jordan$ 标准型</p>
 <script type="math/tex; mode=display">
-J=\text{diag}(J_{e_1}(\lambda_1),...,J_{e_k}(\lambda_s))</script><p>$\lambda<em>i$ 为 $A$ 的特征值 ， $J</em>{e_j}(\lambda_i)$ 为 $Jordan$ 块，形如，</p>
+J=\text{diag}(J_{e_1}(\lambda_1),...,J_{e_k}(\lambda_s))</script><p>其中 $\lambda_{i} $ 为 $A$ 的特征值， $J_e(\lambda_i)$ 为 $Jordan$ 块，形如，</p>
 <script type="math/tex; mode=display">
 J_{e_j}(\lambda_i)=
 \pmatrix{
@@ -822,7 +822,7 @@ V=W_{\lambda_1}\oplus...\oplus W_{\lambda_t}</script><p>证明略。</p>
 <script type="math/tex; mode=display">
 C_0=\text{span}\lbrace \alpha_0,A\alpha_0,...,A^m\alpha_0,... \rbrace</script><h4 id="空间第二分解定理-1"><a href="#空间第二分解定理-1" class="headerlink" title="空间第二分解定理"></a>空间第二分解定理</h4><p>设 $W_{\lambda_j}$ 是线性变换 $A:V\to V$ 的属于特征值 $\lambda_j$ 的根子空间，则</p>
 <script type="math/tex; mode=display">
-W_{\lambda_j} = C_{j1}\oplus C_{j2} \oplus ...\oplus C_{jk_j}</script><p>其中 $C<em>{jl}$ 是相对线性变换 $(A-\lambda_jI)|</em>{W_{\lambda_j}}$ 的循环子空间，其中 $l=1,2,…,k_j$ ，$j=1,2,…,t$ 。</p>
+W_{\lambda_j} = C_{j1}\oplus C_{j2} \oplus ...\oplus C_{jk_j}</script><p> $C_{jl}$ 是循环子空间，其中 $l=1,2,…,k_j$ ，$j=1,2,…,t$ 。</p>
 <p>证明略。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过空间第一、第二分解定律，可以将 $V$ 分解为根子空间（对映不同特征值），每个根子空间再分解为循环子空间（对映集合重数），对应到 $J$ 中的每个 $Jordan$ 块。</p>
 <h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><script type="math/tex; mode=display">
@@ -860,7 +860,7 @@ d_4(\lambda)=(\lambda-1)^2(\lambda+1)^2 \to (\lambda-1)^2,(\lambda+1)^2</script>
 (\lambda+1)^2\to\begin{pmatrix}
 -1&1\\
 0&-1\\
-\end{pmatrix}</script><p>4） 将  $Jordan$ 标准型即 $J=\text{diag}(J<em>{e_1}(\lambda_1),…,J</em>{e_k}(\lambda_s))$ 。</p>
+\end{pmatrix}</script><p>4） 将  $Jordan$ 标准型即 $J=\text{diag}(J_{e_1}(\lambda_1),…)$ 。</p>
 <script type="math/tex; mode=display">
 J=\begin{pmatrix}
 1&1&0&0\\
