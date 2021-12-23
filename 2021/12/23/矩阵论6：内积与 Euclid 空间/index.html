@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>矩阵论6：内积与 Euclid 空间 - 所学所得</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="HonorWithPupils,"> 
+    <meta name="description" content="内积定义设实线性空间 $\def\bm{\boldsymbol} V$ 上二元实函数 $(\cdot,\cdot):V\times V\to \mathbb R $ 满足下面三个性质：
+
+对称性  ,"> 
+    <meta name="author" content="HonorWithPupils"> 
+    <link rel="alternative" href="atom.xml" title="所学所得" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">所学所得</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://honorwithpupils.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">矩阵论6：内积与 Euclid 空间</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">矩阵论6：内积与 Euclid 空间</h1>
+        <div class="stuff">
+            <span>十二月 23, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="内积"><a href="#内积" class="headerlink" title="内积"></a>内积</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>设实线性空间 $\def\bm{\boldsymbol} V$ 上二元实函数 $(\cdot,\cdot):V\times V\to \mathbb R $ 满足下面三个性质：</p>
+<ol>
+<li>对称性  对任意 $\bm\alpha,\bm\beta\in V$ ，都有 $(\bm\alpha,\bm\beta)=(\bm\beta,\bm\alpha)$ ；</li>
+<li>恒正性  对任意 $\bm\alpha\in V$ 且 $\bm\alpha\neq0$ ，都有 $(\bm\alpha,\bm\alpha)&gt;0$ ；</li>
+<li>双线性性 对任意 $\bm\alpha,\bm\alpha_1,\bm\alpha_2,\bm\beta\in V,\lambda \in \mathbb R $ ，都有</li>
+</ol>
+<script type="math/tex; mode=display">
+(\bm\alpha_1+\bm\alpha_2,\bm\beta)=(\bm\alpha_1,\bm\beta)+(\bm\alpha_2,\bm\beta) \\
+(\lambda\bm\alpha,\bm\beta)=\lambda(\bm\alpha,\bm\beta)</script><p>则二元实函数 $(\bm\alpha,\bm\beta)$ 称为实线性空间 $V$ 的一个内积。标准内积是一个特殊的且最常用的内积形式。</p>
+<h3 id="Cauchy-Schwarz-不等式"><a href="#Cauchy-Schwarz-不等式" class="headerlink" title="Cauchy-Schwarz 不等式"></a>Cauchy-Schwarz 不等式</h3><p>设 $(\bm\alpha,\bm\beta)$ 是实线性空间 $V$ 的一个内积，则对任意 $\bm\alpha,\bm\beta \in V$ ，都有 </p>
+<script type="math/tex; mode=display">
+(\bm\alpha,\bm\beta)^2\le (\bm\alpha,\bm\alpha)(\bm\beta,\bm\beta)</script><p>证明：</p>
+<p>考虑函数</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+f(t) &= (t\bm\alpha+\bm\beta,t\bm\alpha+\bm\beta)\\
+&= t^2(\bm\alpha,\bm\alpha)+2t(\bm\alpha,\bm\beta)+(\bm\beta,\bm\beta)
+\end{aligned}</script><p>可见其为二次多项式，由于内积的恒正性，显然 $f(t)\ge0$ 。在考虑二次多项式判别式，可知</p>
+<script type="math/tex; mode=display">
+\Delta=(\bm\alpha,\bm\beta)^2-(\bm\alpha,\bm\alpha)(\bm\beta,\bm\beta)\ge0</script><p>当且仅当 $\bm\alpha$ 和 $\bm\beta$ 线性相关的时候，等号成立。</p>
+<p>Cauchy-Schwarz 不等式在各种证明中常用于放缩。</p>
+<h3 id="内积的方阵表示"><a href="#内积的方阵表示" class="headerlink" title="内积的方阵表示"></a>内积的方阵表示</h3><p>设 $\bm\alpha_1,…,\bm\alpha_n$ 是 $n$ 维实线性空间 $V$ 的一组基，$(\bm\alpha,\bm\beta)$ 是 $V$ 的一个内积，则</p>
+<script type="math/tex; mode=display">
+\bm\alpha=x_1\bm\alpha_1+...+x_n\bm\alpha_n\\
+\bm\beta=y_1\bm\beta_1+...+y_n\bm\beta_n</script><p>因此 </p>
+<script type="math/tex; mode=display">
+(\bm\alpha,\bm\beta)=(\sum_{i=1}^nx_i\bm\alpha_i,\sum_{j=1}^ny_j\bm\alpha_j)=\sum_{i=1}^n\sum_{j=1}^nx_iy_j(\bm\alpha_i,\bm\alpha_j)</script><p>记 $\bm x=(x_1,…,x_n)^T,\bm y=(y_1,…,y_n)^T$ ，则</p>
+<script type="math/tex; mode=display">
+(\bm\alpha,\bm\beta)=\bm x^T G\bm y</script><p>其中</p>
+<script type="math/tex; mode=display">
+G=
+\begin{pmatrix}
+(\bm\alpha_1,\bm\alpha_1)&\cdots&(\bm\alpha_1,\bm\alpha_n)\\
+\vdots&\ddots&\vdots\\
+(\bm\alpha_n,\bm\alpha_1)&\cdots&(\bm\alpha_n,\bm\alpha_n)
+\end{pmatrix}</script><p>该方阵称为内积 $(\bm\alpha,\bm\beta)$ 在该基 $\bm\alpha_1,…,\bm\alpha_n$ 下的 Gram 方阵，易知其对称且半正定。</p>
+<p>可以证明存在一个双射，使得在同一个基下的内积和 Gram 方阵一一对映，即</p>
+<script type="math/tex; mode=display">
+\sigma((\bm\alpha,\bm\beta))=G</script><p>并且可以证明内积在不同基下的 Gram 方阵是合同的，即 $G_2=P^TG_1P$ 。</p>
+<p>可见内积运算和 Gram 方阵之间的密切关系。</p>
+<h2 id="Euclid-空间"><a href="#Euclid-空间" class="headerlink" title="Euclid 空间"></a>Euclid 空间</h2><p>实线性空间 $V$ 连同一个取定的内积 $(\bm\alpha,\bm\beta)$ 构成 Euclid 空间。</p>
+<h4 id="范数（长度）"><a href="#范数（长度）" class="headerlink" title="范数（长度）"></a>范数（长度）</h4><p>通过内积的恒正性，可以给出向量的范数（长度）的一个最常用的定义，</p>
+<script type="math/tex; mode=display">
+\Vert \bm\alpha \Vert=\sqrt{(\bm\alpha,\bm\alpha)}</script><p>范数是具有“长度”概念的函数。上式并非范数唯一的定义，只要符合以下三个条件就满足范数的条件：</p>
+<ol>
+<li>非负性：$\Vert \bm\alpha \Vert\ge0 \text{ and } \Vert\bm \alpha\Vert=0\Leftrightarrow \bm\alpha=0 $ ；</li>
+<li>齐次性：$\Vert\lambda\bm \alpha\Vert=\vert\lambda\vert\Vert\bm\alpha\Vert$ ；</li>
+<li>三角不等式：$\Vert\bm\alpha+\bm\beta\Vert\le\Vert\bm\alpha\Vert+\Vert\bm\beta\Vert$ ；</li>
+</ol>
+<p>非负性和齐次性根据定义显然，接下来证明三角不等式</p>
+<p>证明：由范数的定义</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\Vert\bm\alpha+\bm\beta\Vert^2&=(\bm\alpha+\bm\beta,\bm\alpha+\bm\beta)\\
+&=(\bm\alpha,\bm\alpha)+2(\bm\alpha,\bm\beta)+(\bm\beta,\bm\beta)\\
+&\le\Vert\bm\alpha\Vert^2+2\Vert\bm\alpha\Vert\Vert\bm\beta\Vert+\Vert\bm\beta\Vert^2\\
+&=(\Vert\bm\alpha\Vert+\Vert\bm\beta\Vert)^2
+\end{aligned}</script><h3 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h3><p>例1：标准内积 $(\bm\alpha,\bm\beta)=\bm\alpha^T\bm\beta$ 是一个特殊的内积，和 $\mathbb R^n$ 构成 Euclid 空间。</p>
+<p>例2：对于 $\mathbb R^2$ ，以下二元实函数</p>
+<script type="math/tex; mode=display">
+(\bm\alpha,\bm\beta)=\alpha_1\beta_1-\alpha_2\beta_1-\alpha_1\beta_2+4\alpha_2\beta_2</script><p>容易验证符合对称性、恒正性和双线性性，其是一个内积，构成 Euclid 空间。</p>
+<p>例3：对于 $\mathbb R^{n\times n}$ 以及如下内积运算</p>
+<script type="math/tex; mode=display">
+(A,B)=\text{Tr} (AB^T)=\sum_{1\le i,j\le n}a^2_{ij}>0</script><p>构成 Euclid 空间</p>
+<p>例4：对于闭区间 $[a,b]$ 上的连续函数构成的线性空间 $C[a,b]$ 以及如下内积运算</p>
+<script type="math/tex; mode=display">
+(f(x),g(x))=\int_a^bf(x)g(x)dx</script><p>构成 Euclid 空间。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">
+                <source type="audio/mpeg" src="https://music.163.com/song/media/outer/url?id=4899152.mp3">
+            </audio>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>
