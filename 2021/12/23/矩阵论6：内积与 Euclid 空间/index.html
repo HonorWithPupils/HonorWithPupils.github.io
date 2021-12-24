@@ -58,11 +58,13 @@
 <ol>
 <li>对称性  对任意 $\bm\alpha,\bm\beta\in V$ ，都有 $(\bm\alpha,\bm\beta)=(\bm\beta,\bm\alpha)$ ；</li>
 <li>恒正性  对任意 $\bm\alpha\in V$ 且 $\bm\alpha\neq0$ ，都有 $(\bm\alpha,\bm\alpha)&gt;0$ ；</li>
-<li>双线性性 对任意 $\bm\alpha,\bm\alpha_1,\bm\alpha_2,\bm\beta\in V,\lambda \in \mathbb R $ ，都有</li>
+<li>双线性性 对任意 $\bm\alpha,\bm\alpha_1,\bm\alpha_2,\bm\beta,\bm\beta_1,\bm\beta_2\in V,\lambda \in \mathbb R $ ，都有</li>
 </ol>
 <script type="math/tex; mode=display">
 (\bm\alpha_1+\bm\alpha_2,\bm\beta)=(\bm\alpha_1,\bm\beta)+(\bm\alpha_2,\bm\beta) \\
-(\lambda\bm\alpha,\bm\beta)=\lambda(\bm\alpha,\bm\beta)</script><p>则二元实函数 $(\bm\alpha,\bm\beta)$ 称为实线性空间 $V$ 的一个内积。标准内积是一个特殊的且最常用的内积形式。</p>
+(\lambda\bm\alpha,\bm\beta)=\lambda(\bm\alpha,\bm\beta)\\
+(\bm\alpha,\bm\beta_1+\bm\beta_2)=(\bm\alpha,\bm\beta_1)+(\bm\alpha,\bm\beta_2) \\
+(\bm\alpha,\lambda\bm\beta)=\lambda(\bm\alpha,\bm\beta)</script><p>则二元实函数 $(\bm\alpha,\bm\beta)$ 称为实线性空间 $V$ 的一个内积。标准内积是一个特殊的且最常用的内积形式。</p>
 <h3 id="Cauchy-Schwarz-不等式"><a href="#Cauchy-Schwarz-不等式" class="headerlink" title="Cauchy-Schwarz 不等式"></a>Cauchy-Schwarz 不等式</h3><p>设 $(\bm\alpha,\bm\beta)$ 是实线性空间 $V$ 的一个内积，则对任意 $\bm\alpha,\bm\beta \in V$ ，都有 </p>
 <script type="math/tex; mode=display">
 (\bm\alpha,\bm\beta)^2\le (\bm\alpha,\bm\alpha)(\bm\beta,\bm\beta)</script><p>证明：</p>
@@ -89,12 +91,20 @@ G=
 (\bm\alpha_1,\bm\alpha_1)&\cdots&(\bm\alpha_1,\bm\alpha_n)\\
 \vdots&\ddots&\vdots\\
 (\bm\alpha_n,\bm\alpha_1)&\cdots&(\bm\alpha_n,\bm\alpha_n)
-\end{pmatrix}</script><p>该方阵称为内积 $(\bm\alpha,\bm\beta)$ 在该基 $\bm\alpha_1,…,\bm\alpha_n$ 下的 Gram 方阵，易知其对称且半正定。</p>
-<p>可以证明存在一个双射，使得在同一个基下的内积和 Gram 方阵一一对映，即</p>
+\end{pmatrix}</script><p>该方阵称为内积 $(\bm\alpha,\bm\beta)$ 在基 $\bm\alpha_1,…,\bm\alpha_n$ 下的 Gram 方阵，并且有以下两个属性</p>
+<ol>
+<li>对称：</li>
+</ol>
 <script type="math/tex; mode=display">
-\sigma((\bm\alpha,\bm\beta))=G</script><p>并且可以证明内积在不同基下的 Gram 方阵是合同的，即 $G_2=P^TG_1P$ 。</p>
-<p>可见内积运算和 Gram 方阵之间的密切关系。</p>
-<h2 id="Euclid-空间"><a href="#Euclid-空间" class="headerlink" title="Euclid 空间"></a>Euclid 空间</h2><p>实线性空间 $V$ 连同一个取定的内积 $(\bm\alpha,\bm\beta)$ 构成 Euclid 空间。</p>
+G=G^T</script><ol>
+<li>正定性：</li>
+</ol>
+<script type="math/tex; mode=display">
+\forall\  \bm x\neq0,\ \bm x^TG\bm x>0</script><p>注意正定性的前提条件是 $\bm\alpha_1,…,\bm\alpha_n$ 线性无关。</p>
+<p>也可以证明存在一个双射，使得在同一个基下的内积和 Gram 方阵一一对映，即</p>
+<script type="math/tex; mode=display">
+\sigma((\bm\alpha,\bm\beta))=G</script><p>可见内积运算和 Gram 方阵之间的密切关系。</p>
+<h2 id="Euclid-空间"><a href="#Euclid-空间" class="headerlink" title="Euclid 空间"></a>Euclid 空间</h2><p>实线性空间（有限维） $V$ 连同一个取定的内积 $(\bm\alpha,\bm\beta)$ 构成 Euclid 空间。</p>
 <h4 id="范数（长度）"><a href="#范数（长度）" class="headerlink" title="范数（长度）"></a>范数（长度）</h4><p>通过内积的恒正性，可以给出向量的范数（长度）的一个最常用的定义，</p>
 <script type="math/tex; mode=display">
 \Vert \bm\alpha \Vert=\sqrt{(\bm\alpha,\bm\alpha)}</script><p>范数是具有“长度”概念的函数。上式并非范数唯一的定义，只要符合以下三个条件就满足范数的条件：</p>
@@ -120,7 +130,7 @@ G=
 (A,B)=\text{Tr} (AB^T)=\sum_{1\le i,j\le n}a^2_{ij}>0</script><p>构成 Euclid 空间</p>
 <p>例4：对于闭区间 $[a,b]$ 上的连续函数构成的线性空间 $C[a,b]$ 以及如下内积运算</p>
 <script type="math/tex; mode=display">
-(f(x),g(x))=\int_a^bf(x)g(x)dx</script><p>构成 Euclid 空间。</p>
+(f(x),g(x))=\int_a^bf(x)g(x)dx</script><p>构成 Hilbert 空间（扩展到无限维的 Euclid 空间）。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="true">

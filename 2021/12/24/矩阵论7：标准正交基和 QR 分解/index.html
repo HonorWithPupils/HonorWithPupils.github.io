@@ -10,8 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="HonorWithPupils,"> 
-    <meta name="description" content="定理：正交 → 线性无关Euclid 空间中 $k$ 个两两正交的非零向量 $\def\bm{\boldsymbol} \bm\alpha_1,…,\bm\alpha_k $ 线性无关
-证明：设 $,"> 
+    <meta name="description" content="在现实世界中，我们可以轻松地确定唯一的垂直（正交）关系，然而在矩阵论的抽象之中，就连垂直（正交）关系也是相对的，定义不同的内积便有不同的垂直（正交）、不同的标准正交基，从其各自的标准正交基中观察自身,"> 
     <meta name="author" content="HonorWithPupils"> 
     <link rel="alternative" href="atom.xml" title="所学所得" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -53,7 +52,8 @@
 
         </div>
         <div class="content markdown">
-            <h2 id="定理：正交-→-线性无关"><a href="#定理：正交-→-线性无关" class="headerlink" title="定理：正交 → 线性无关"></a>定理：正交 → 线性无关</h2><p>Euclid 空间中 $k$ 个两两正交的非零向量 $\def\bm{\boldsymbol} \bm\alpha_1,…,\bm\alpha_k $ 线性无关</p>
+            <p>在现实世界中，我们可以轻松地确定唯一的垂直（正交）关系，然而在矩阵论的抽象之中，就连垂直（正交）关系也是相对的，定义不同的内积便有不同的垂直（正交）、不同的标准正交基，从其各自的标准正交基中观察自身都是自然的，垂直（正交）都是符合常理的，而对方则是不正常的。</p>
+<h2 id="定理：正交-→-线性无关"><a href="#定理：正交-→-线性无关" class="headerlink" title="定理：正交 → 线性无关"></a>定理：正交 → 线性无关</h2><p>Euclid 空间中 $k$ 个两两正交的非零向量 $\def\bm{\boldsymbol} \bm\alpha_1,…,\bm\alpha_k $ 线性无关</p>
 <p>证明：设 $\lambda_1,…,\lambda_k\in\mathbb R$ ，且 $\lambda_1\bm\alpha_1+…+\lambda_k\bm\alpha_k=0 $ ，则有</p>
 <script type="math/tex; mode=display">
 (\sum_{i=1}^k\lambda_i\bm\alpha_i,\bm\alpha_j)=\sum_{i=1}^k\lambda_i(\bm\alpha_i,\bm\alpha_j)=0</script><p>由于 $i\neq j,(\bm\alpha_i,\bm\alpha_j)=0$ 且 $(\bm\alpha_j,\bm\alpha_j)&gt;0$ ，所以 $\lambda_j=0$ 。由于 $j$ 的选择是任意的，得证。</p>
@@ -77,7 +77,7 @@
 \bm\beta_2&=\bm\alpha_2-\proj_{\bm\beta_1}\bm\alpha_2,&\bm\beta_2^*&=\frac{\bm\beta_2}{\Vert\bm\beta_2\Vert}\\
 &\vdots &&\vdots \\
 \bm\beta_n&=\bm\alpha_n-\sum_{i=1}^{n-1}\proj_{\bm\beta_i}\bm\alpha_n,&\bm\beta_n^*&=\frac{\bm\beta_n}{\Vert\bm\beta_n\Vert}
-\end{aligned}</script><p>这个求解方法即 Gram-Schmidt 正交化，最终得到的 $\bm\beta_1,…,\bm\beta_n$ 是 Euclid 空间 $V$ 的一组基，它称为 $V$ 的正交基，经过标准化后，$\bm\beta_1^<em>,…,\bm\beta_n^</em>$ 称为标准正交基。</p>
+\end{aligned}</script><p>这个求解方法即 Gram-Schmidt 正交化，最终得到的 $\bm\beta_1,…,\bm\beta_n$ 是 Euclid 空间 $V$ 的一组基，它称为 $V$ 的正交基。经过标准化后，则称为标准正交基。</p>
 <h3 id="数值稳定性"><a href="#数值稳定性" class="headerlink" title="数值稳定性"></a>数值稳定性</h3><p><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Gram-Schmidt_process#Numerical_stability">wikipedia-Gram-Schmidt 正交化数值稳定性分析</a></p>
 <p>由于计算机的舍入误差，Gram-Schmidt 正交化每次迭代都有可能会积累误差，使得 $\bm\beta_k^*$ 之间不是完全正交。</p>
 <p>随着迭代式中 $\bm\beta_k^*$ 的增多，正交性的损失也愈加严重 ，尤其高纬度情况（个人理解）。因此（经典的）Gram-Schmidt 正交化在数值上是不稳定的。</p>
@@ -87,7 +87,54 @@
 \bm\alpha_i^*=\bm\alpha_i-(\bm\alpha_i,\bm\beta_k^*)\bm\beta_k^* ,i\in{k+1,...,n}
 \end{aligned}</script><p>即在之后的 $\bm\alpha$ 上减轻当前 $\bm\beta$ 上的分量。</p>
 <h2 id="标准正交基"><a href="#标准正交基" class="headerlink" title="标准正交基"></a>标准正交基</h2><p>由于引入了内积，Euclid 空间比线性空间具有更强的结构性，基的选择应当与这种结构相适应，通过正交引入的标准正交基正是 Euclid 空间所应当考虑的基，也是通常三维空间的笛卡尔坐标系的直接推广。</p>
-<h3 id="定理：标准正交基的联系"><a href="#定理：标准正交基的联系" class="headerlink" title="定理：标准正交基的联系"></a>定理：标准正交基的联系</h3><p>设 $\bm\xi_1,…,\bm\xi_n$ 与 $\bm\eta_1,…,\bm\eta_n$ 是 $n$ 维 Euclid 空间的两组正交基，则两者之间的过渡矩阵 $P$ 是正交方阵，即</p>
+<h3 id="定理：标准正交基的优良性质"><a href="#定理：标准正交基的优良性质" class="headerlink" title="定理：标准正交基的优良性质"></a>定理：标准正交基的优良性质</h3><p>设 $\bm\xi_1,…,\bm\xi_n$ 是 $n$ 维 Euclid 空间的两组正交基，则对任意向量</p>
+<script type="math/tex; mode=display">
+\bm\alpha=x_1\bm\xi_1+...+x_n\bm\xi_n</script><p>有</p>
+<script type="math/tex; mode=display">
+x_i=(\bm\alpha,\bm\xi_i)</script><p>对任意两个向量</p>
+<script type="math/tex; mode=display">
+\bm\alpha=x_1\bm\xi_1+...+x_n\bm\xi_n\\
+\bm\beta=y_1\bm\xi_1+...+y_n\bm\xi_n</script><p>有</p>
+<script type="math/tex; mode=display">
+(\bm\alpha,\bm\beta)=x_1y_1+...+x_ny_n</script><p>可见在标准正交基下，向量的坐标分量是该向量与相应基向量的内积，向量的内积是标准内积形式。由此我们可以得出一个结论，标准内积并非是一个特别的内积，而是内积在其对应的标准正交基下的形式，例如 上一节 中的例子。</p>
+<p>对于 $\mathbb R^2$ ，定义内积运算如下：</p>
+<script type="math/tex; mode=display">
+(\bm\xi,\bm\eta)=\xi_1\eta_1-\xi_2\eta_1-\xi_1\eta_2+4\xi_2\eta_2</script><p>注意在不同的内积定义下，范数的定义也会发生改变</p>
+<script type="math/tex; mode=display">
+\Vert\bm\alpha\Vert=\sqrt{(\bm\alpha,\bm\alpha)}=\sqrt{\alpha_1^2-2\alpha_1\alpha_2+4\alpha_2^2}</script><p>设 $\bm\alpha_1=(1,0)^T,\bm\alpha_2=(0,1)^T$ ，显然</p>
+<script type="math/tex; mode=display">
+(\bm\alpha_1,\bm\alpha_2)=-1\neq 0</script><p>不是该内积运算的标准正交基，接下来通过 Gram-Schmidt 正交化，求得标准正交基</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\bm\beta_1&=\bm\alpha_1=(1,0)^T,&\bm\beta_1^*&=\frac{\bm\beta_1}{\Vert\bm\beta_1\Vert}=(1,0)^T\\
+\bm\beta_2&=(0,1)^T-(-1)\cdot(1,0)^T=(1,1),
+&\bm\beta_2^*&=\frac{\bm\beta_2}{\Vert\bm\beta_2\Vert}=\frac{\sqrt3}{3}(1,1)\\
+\end{aligned}</script><p>两个基的过渡矩阵为</p>
+<script type="math/tex; mode=display">
+(\bm\beta_1^*,\bm\beta_2^*)=(\bm\alpha_1,\bm\alpha_2)P=(\bm\alpha_1,\bm\alpha_2)
+\begin{pmatrix}
+1&\frac{\sqrt3}{3}\\
+0&\frac{\sqrt3}{3}
+\end{pmatrix}</script><script type="math/tex; mode=display">
+\bm\alpha_1=1\cdot\bm\beta_1^*+0\cdot\bm\beta_2^*\\
+\bm\alpha_2=-1\cdot\bm\beta_1^*+\sqrt3\cdot\bm\beta_2^*</script><p>可见</p>
+<script type="math/tex; mode=display">
+(\bm\alpha_1,\bm\alpha_2)=1\cdot(-1)+0\cdot\sqrt3=0</script><h4 id="Gram-方阵在不同基下的变换"><a href="#Gram-方阵在不同基下的变换" class="headerlink" title="Gram 方阵在不同基下的变换"></a>Gram 方阵在不同基下的变换</h4><p>由于内积和 Gram 方阵有着一一对应的关系，Gram 在不同基下也随着内积形式而变化，有以下定理：</p>
+<p>设 $\bm\alpha_1,…,\bm\alpha_n$ 与 $\bm\beta_1,…,\bm\beta_n$ 是 $n$ 维 Euclid 空间的两组基，内积 $(\bm\alpha,\bm\beta)$ 在两组基下的 Gram 方阵分别为 $G_1$ 和 $G_2$ ，而且</p>
+<script type="math/tex; mode=display">
+(\bm\beta_1,...,\bm\beta_n)=(\bm\alpha_1,...,\bm\alpha_n)P</script><p>则</p>
+<script type="math/tex; mode=display">
+G_2=P^TG_1P</script><p>即方阵 $G_1$ 和 $G_2$ 是合同的。</p>
+<p>该定理可以通过拆散矩阵再化为矩阵形式，轻松证明。</p>
+<p>回到上一个例子，该内积在原本的基 $\bm\alpha_1,\bm\alpha_2$ 下的 Gram 方阵为，</p>
+<script type="math/tex; mode=display">
+G_1=\begin{pmatrix}
+1&-1\\-1&4
+\end{pmatrix} \\
+G_2=P^TG_1P=\begin{pmatrix}
+1&0\\0&1
+\end{pmatrix}</script><p>即在内积对映的标准正交基下，内积的计算形式是标准内积，其 Gram 方阵也是单位阵。</p>
+<h3 id="定理：标准正交基间的转换"><a href="#定理：标准正交基间的转换" class="headerlink" title="定理：标准正交基间的转换"></a>定理：标准正交基间的转换</h3><p>设 $\bm\xi_1,…,\bm\xi_n$ 与 $\bm\eta_1,…,\bm\eta_n$ 是 $n$ 维 Euclid 空间的两组正交基，则两者之间的过渡矩阵 $P$ 是正交方阵，即</p>
 <script type="math/tex; mode=display">
 PP^T=P^TP=I</script><p>证明：记 </p>
 <script type="math/tex; mode=display">
@@ -95,9 +142,9 @@ P=(p_{ij})_{n\times n}</script><p>则</p>
 <script type="math/tex; mode=display">
 \bm\eta_j=\sum_{i=1}^np_{ij}\bm\xi_i</script><script type="math/tex; mode=display">
 \begin{aligned}
-(\bm\eta_i,\bm\eta_j)&=(\sum_{k=1}^np_{kj}\bm\xi_k,\sum_{l=1}^np_{lj}\bm\xi_l)\\
-&=\sum_{k=1}^n\sum_{l=1}^np_{kj}p_{lj}(\bm\xi_k,\bm\xi_l) \\
-&=\sum_{k=1}^np_{kj}p_{kj} \\
+(\bm\eta_i,\bm\eta_j)&=(\sum_{k=1}^np_{ki}\bm\xi_k,\sum_{l=1}^np_{lj}\bm\xi_l)\\
+&=\sum_{k=1}^n\sum_{l=1}^np_{ki}p_{lj}(\bm\xi_k,\bm\xi_l) \\
+&=\sum_{k=1}^np_{ki}p_{kj} \\
 &=\begin{cases}
 1,\text{if }i=j\\
 0,\text{if }i\neq j
