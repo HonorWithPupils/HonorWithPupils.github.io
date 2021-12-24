@@ -955,4 +955,112 @@ G=
         <tag>math</tag>
       </tags>
   </entry>
+  <entry>
+    <title>矩阵论7：标准正交基和 QR 分解</title>
+    <url>/2021/12/24/%E7%9F%A9%E9%98%B5%E8%AE%BA7%EF%BC%9A%E6%A0%87%E5%87%86%E6%AD%A3%E4%BA%A4%E5%9F%BA%E5%92%8C%20QR%20%E5%88%86%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="定理：正交-→-线性无关"><a href="#定理：正交-→-线性无关" class="headerlink" title="定理：正交 → 线性无关"></a>定理：正交 → 线性无关</h2><p>Euclid 空间中 $k$ 个两两正交的非零向量 $\def\bm{\boldsymbol} \bm\alpha_1,…,\bm\alpha_k $ 线性无关</p>
+<p>证明：设 $\lambda_1,…,\lambda_k\in\mathbb R$ ，且 $\lambda_1\bm\alpha_1+…+\lambda_k\bm\alpha_k=0 $ ，则有</p>
+<script type="math/tex; mode=display">
+(\sum_{i=1}^k\lambda_i\bm\alpha_i,\bm\alpha_j)=\sum_{i=1}^k\lambda_i(\bm\alpha_i,\bm\alpha_j)=0</script><p>由于 $i\neq j,(\bm\alpha_i,\bm\alpha_j)=0$ 且 $(\bm\alpha_j,\bm\alpha_j)&gt;0$ ，所以 $\lambda_j=0$ 。由于 $j$ 的选择是任意的，得证。</p>
+<p>从该定理我们可以轻松推得，$n$ 维 Euclid 空间中两两正交的非零向量组中所含向量的个数不超过 $n$ 。因此接下来我们的问题是： $n$ 维 Euclid 空间中是否存在 $n$ 个两两正交的非零向量构成的向量组？</p>
+<h2 id="Gram-Schmidt-正交化"><a href="#Gram-Schmidt-正交化" class="headerlink" title="Gram-Schmidt 正交化"></a>Gram-Schmidt 正交化</h2><p>设 $\bm\alpha_1,…,\bm\alpha_n $ 是 $n$ 维 Euclid 空间 $V$ 的一组基，则存在两两正交的非零向量 $\bm\beta_1,…,\bm\beta_n$ ，使得对于任意正整数 $k$ ， $\bm\beta_1,…,\bm\beta_k$ 是  $\bm\alpha_1,…,\bm\alpha_k$ 生产的子空间 $V_k$ 的一组基。</p>
+<p>证明：使用数学归纳法，首先取 $\bm\beta_1=\bm\alpha_1$ ，对 $k=1$ 成立；</p>
+<p>现在假设 $k=k-1$ 时成立，证明 $k=k$ 时也成立，设</p>
+<script type="math/tex; mode=display">
+\bm\beta_k=\bm\alpha_k-\lambda_{k-1}\bm\beta_{k-1}-...-\lambda_1\bm\beta_1</script><p>由于 $i\neq j,(\bm\beta_i,\bm\beta_j)=0$ ，所以</p>
+<script type="math/tex; mode=display">
+(\bm\beta_k,\bm\beta_j)=(\bm\alpha_k-\sum_{i=1}^{k-1}\lambda_{i-1},\bm\beta_j)=(\bm\alpha_k,\bm\beta_j)-\lambda_j(\bm\beta_j,\bm\beta_j)=0</script><p>得到</p>
+<script type="math/tex; mode=display">
+\lambda_j=\frac{(\bm\alpha_k,\bm\beta_j)}{(\bm\beta_j,\bm\beta_j)}</script><p>为了更加具象可以定义投影（projection）运算</p>
+<script type="math/tex; mode=display">
+\def\proj\{\text{proj}}
+\proj_{\bm\beta}\bm\alpha=\frac{(\bm\alpha,\bm\beta)}{(\bm\beta,\bm\beta)}\bm\beta=(\bm\alpha,\bm\beta^*)\bm\beta^*</script><p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/12/投影操作.png" alt="投影操作"></p>
+<p>计算具体如下</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\bm\beta_1&=\bm\alpha_1,&\bm\beta_1^*&=\frac{\bm\beta_1}{\Vert\bm\beta_1\Vert}\\
+\bm\beta_2&=\bm\alpha_2-\proj_{\bm\beta_1}\bm\alpha_2,&\bm\beta_2^*&=\frac{\bm\beta_2}{\Vert\bm\beta_2\Vert}\\
+&\vdots &&\vdots \\
+\bm\beta_n&=\bm\alpha_n-\sum_{i=1}^{n-1}\proj_{\bm\beta_i}\bm\alpha_n,&\bm\beta_n^*&=\frac{\bm\beta_n}{\Vert\bm\beta_n\Vert}
+\end{aligned}</script><p>这个求解方法即 Gram-Schmidt 正交化，最终得到的 $\bm\beta_1,…,\bm\beta_n$ 是 Euclid 空间 $V$ 的一组基，它称为 $V$ 的正交基，经过标准化后，$\bm\beta_1^<em>,…,\bm\beta_n^</em>$ 称为标准正交基。</p>
+<h3 id="数值稳定性"><a href="#数值稳定性" class="headerlink" title="数值稳定性"></a>数值稳定性</h3><p><a href="http://en.wikipedia.org/wiki/Gram-Schmidt_process#Numerical_stability">wikipedia-Gram-Schmidt 正交化数值稳定性分析</a></p>
+<p>由于计算机的舍入误差，Gram-Schmidt 正交化每次迭代都有可能会积累误差，使得 $\bm\beta_k^*$ 之间不是完全正交。</p>
+<p>随着迭代式中 $\bm\beta_k^*$ 的增多，正交性的损失也愈加严重 ，尤其高纬度情况（个人理解）。因此（经典的）Gram-Schmidt 正交化在数值上是不稳定的。</p>
+<p>Gram-Schmidt 正交化可以通过一个小的修改来稳定，这称为改进 Gram-Schmidt 正交化，在每次计算   $\bm\beta_k^*$ 后，都做如下操作，</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\bm\alpha_i^*=\bm\alpha_i-(\bm\alpha_i,\bm\beta_k^*)\bm\beta_k^* ,i\in{k+1,...,n}
+\end{aligned}</script><p>即在之后的 $\bm\alpha$ 上减轻当前 $\bm\beta$ 上的分量。</p>
+<h2 id="标准正交基"><a href="#标准正交基" class="headerlink" title="标准正交基"></a>标准正交基</h2><p>由于引入了内积，Euclid 空间比线性空间具有更强的结构性，基的选择应当与这种结构相适应，通过正交引入的标准正交基正是 Euclid 空间所应当考虑的基，也是通常三维空间的笛卡尔坐标系的直接推广。</p>
+<h3 id="定理：标准正交基的联系"><a href="#定理：标准正交基的联系" class="headerlink" title="定理：标准正交基的联系"></a>定理：标准正交基的联系</h3><p>设 $\bm\xi_1,…,\bm\xi_n$ 与 $\bm\eta_1,…,\bm\eta_n$ 是 $n$ 维 Euclid 空间的两组正交基，则两者之间的过渡矩阵 $P$ 是正交方阵，即</p>
+<script type="math/tex; mode=display">
+PP^T=P^TP=I</script><p>证明：记 </p>
+<script type="math/tex; mode=display">
+P=(p_{ij})_{n\times n}</script><p>则</p>
+<script type="math/tex; mode=display">
+\bm\eta_j=\sum_{i=1}^np_{ij}\bm\xi_i</script><script type="math/tex; mode=display">
+\begin{aligned}
+(\bm\eta_i,\bm\eta_j)&=(\sum_{k=1}^np_{kj}\bm\xi_k,\sum_{l=1}^np_{lj}\bm\xi_l)\\
+&=\sum_{k=1}^n\sum_{l=1}^np_{kj}p_{lj}(\bm\xi_k,\bm\xi_l) \\
+&=\sum_{k=1}^np_{kj}p_{kj} \\
+&=\begin{cases}
+1,\text{if }i=j\\
+0,\text{if }i\neq j
+\end{cases}
+\end{aligned}</script><p>化为矩阵形式，即 $P^TP=I$ 。</p>
+<p>这个定理将给出同一个 Euclid 空间中两组标准正交基的联系。</p>
+<p>类似的证明方法可以证明：一组标准正交基通过一个正交矩阵变换得到的依然是一组标准正交基。</p>
+<p>由此表明：$n$ 维 Euclid 空间 $V$ 中所有标准正交基集合和所有 $n$ 阶实正交方阵集合之间一一对应。</p>
+<h2 id="矩阵的-QR-分解"><a href="#矩阵的-QR-分解" class="headerlink" title="矩阵的 QR 分解"></a>矩阵的 QR 分解</h2><p><img src="https://gitee.com/HonorWithPupil/img-bed/raw/master/Img/2021/12/QR分解.jpg" alt="QR分解"></p>
+<p>任何实方阵都可以做 QR 分解：</p>
+<script type="math/tex; mode=display">
+A=QR</script><p>其中 $Q$ 是正交阵，$R$ 是上三角矩阵。</p>
+<p>证明可以直接从 Gram-Schmidt 正交化中汲取线索，</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\bm\alpha_1&=\bm\beta_1=\Vert\bm\beta_1\Vert\bm\beta_1^*,
+&\bm\beta_1^*&=\frac{\bm\beta_1}{\Vert\bm\beta_1\Vert}\\
+\bm\alpha_2&=\Vert\bm\beta_2\Vert\bm\beta_2^*+(\bm\alpha_2,\bm\beta_1^*)\bm\beta_1^*,
+&\bm\beta_2^*&=\frac{\bm\beta_2}{\Vert\bm\beta_2\Vert}\\
+&\vdots &&\vdots \\
+\bm\alpha_n&=\Vert\bm\beta_n\Vert\bm\beta_n^*-\sum_{i=1}^{n-1}(\bm\alpha_n,\bm\beta_i^*)\bm\beta_i^*,
+&\bm\beta_n^*&=\frac{\bm\beta_n}{\Vert\bm\beta_n\Vert}
+\end{aligned}</script><p>转化为矩阵形式即</p>
+<script type="math/tex; mode=display">
+(\bm\alpha_1,...,\bm\alpha_n)
+=
+(\bm\beta_1^*,...,\bm\beta_n^*)
+\begin{pmatrix}
+\Vert \bm\beta_1 \Vert & (\bm\alpha_2,\bm\beta_1^*) & \cdots & (\bm\alpha_n,\bm\beta_1^*) \\
+0 & \Vert \bm\beta_2 \Vert & \cdots & (\bm\alpha_n,\bm\beta_2^*) \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \Vert \bm\beta_n \Vert
+\end{pmatrix}</script><p>这个过程也适用非方阵和列不满秩矩阵：</p>
+<ol>
+<li><p>非方阵：</p>
+<script type="math/tex; mode=display">
+A_{m\times n}=Q_{m\times n}R_{n\times n}</script></li>
+<li><p>列不满秩矩阵：$\bm\beta_i$ 会等于 0， $R$ 末尾将有全零行。</p>
+</li>
+</ol>
+<h3 id="应用——最小二乘问题"><a href="#应用——最小二乘问题" class="headerlink" title="应用——最小二乘问题"></a>应用——最小二乘问题</h3><script type="math/tex; mode=display">
+\min_x\Vert Ax-b\Vert^2 \\
+\Rightarrow x=(A^TA)^{-1}A^Tb</script><p>通常对于 $A_{m\times n}$ ，$m\gg n$ 并且 $A$ 列满秩。</p>
+<p>对 $A$ 进行 QR 分解，即 $A=QR$ ，则</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(A^TA)x&=A^Tb \\
+(QR)^T(QR)x&=(QR)^Tb\\
+R^TQ^TQRx&=R^TQ^Tb\\
+Rx&=Q^Tx\\
+\Rightarrow x&=R^{-1}Q^Tx
+\end{aligned}</script><p>其中 $R$ 为上三角矩阵，求逆相对容易很多，规避了直接对 $(ATA)^{−1}$ 求逆复杂度高的问题。</p>
+]]></content>
+      <categories>
+        <category>MatrixTheory</category>
+      </categories>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
 </search>
